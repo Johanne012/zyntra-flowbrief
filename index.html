@@ -4,94 +4,76 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ZYNTRA Launch Kit — باقة الإطلاق خلال 72 ساعة</title>
-<meta name="description" content="Logo, social pack, pitch, video and landing in 72 hours. Gulf · Africa · Asia · Export." />
+<meta name="description" content="شعار + منشورات + عرض + فيديو خلال 72 ساعة. الخليج · أفريقيا · آسيا · تصدير." />
 <style>
-  :root { --bg:#0b1220; --card:#121a2b; --text:#e8eefc; --muted:#9aa8c7; --accent:#2dd4bf; --accent2:#38bdf8; }
-  * { box-sizing: border-box; }
-  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
-  .wrap { max-width:960px; margin:0 auto; padding:2rem 1.25rem 4rem; }
-  header { text-align:center; padding:2.5rem 0 1.5rem; }
-  .badge { display:inline-block; background:#0f766e33; color:var(--accent); border:1px solid #2dd4bf55; padding:.35rem .8rem; border-radius:999px; font-size:.85rem; margin-bottom:1rem; }
-  h1 { font-size:clamp(1.6rem, 4vw, 2.4rem); margin:.2rem 0 0.6rem; }
-  .sub { color:var(--muted); max-width:36rem; margin:0 auto 1.5rem; }
-  .cta { display:inline-block; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#042f2e; font-weight:700; text-decoration:none; padding:.85rem 1.4rem; border-radius:.75rem; }
-  .cta:hover { filter:brightness(1.08); }
-  .markets { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin:1.5rem 0 2.5rem; }
-  .markets span { background:var(--card); border:1px solid #1e293b; padding:.4rem .75rem; border-radius:.5rem; font-size:.85rem; color:var(--muted); }
-  h2 { font-size:1.25rem; margin:2rem 0 1rem; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; }
-  .card { background:var(--card); border:1px solid #1e293b; border-radius:1rem; padding:1.25rem; }
-  .card h3 { margin:0 0 .5rem; color:var(--accent); font-size:1.05rem; }
-  .card .price { font-weight:700; font-size:1.15rem; margin:.6rem 0; }
-  .card ul { margin:0; padding-inline-start:1.1rem; color:var(--muted); font-size:.92rem; }
-  footer { text-align:center; margin-top:3rem; color:var(--muted); font-size:.85rem; }
-  .en { direction:ltr; text-align:left; margin-top:3rem; padding-top:2rem; border-top:1px solid #1e293b; }
-  .en h2 { text-align:left; }
+:root{--bg:#0b1220;--card:#121a2b;--text:#e8eefc;--muted:#9aa8c7;--accent:#2dd4bf;--accent2:#38bdf8}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+.wrap{max-width:960px;margin:0 auto;padding:2rem 1.25rem 4rem}
+header{text-align:center;padding:2.5rem 0 1rem}
+.badge{display:inline-block;background:#0f766e33;color:var(--accent);border:1px solid #2dd4bf55;padding:.35rem .85rem;border-radius:999px;font-size:.85rem;margin-bottom:1rem}
+.pilot{display:inline-block;background:#f59e0b22;color:#fbbf24;border:1px solid #f59e0b55;padding:.35rem .85rem;border-radius:999px;font-size:.85rem;margin:.5rem 0 1rem}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);margin:.2rem 0 .6rem}
+.sub{color:var(--muted);max-width:38rem;margin:0 auto 1.25rem}
+.cta{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042f2e;font-weight:700;text-decoration:none;padding:.9rem 1.5rem;border-radius:.75rem;margin:.25rem}
+.cta.secondary{background:transparent;border:1px solid #2dd4bf66;color:var(--accent)}
+.markets{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin:1.5rem 0 2rem}
+.markets span{background:var(--card);border:1px solid #1e293b;padding:.4rem .75rem;border-radius:.5rem;font-size:.85rem;color:var(--muted)}
+h2{font-size:1.3rem;margin:2.2rem 0 1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.card{background:var(--card);border:1px solid #1e293b;border-radius:1rem;padding:1.25rem}
+.card.featured{border-color:#2dd4bf66;box-shadow:0 0 0 1px #2dd4bf33}
+.card h3{margin:0 0 .4rem;color:var(--accent);font-size:1.05rem}
+.price{font-weight:700;font-size:1.2rem;margin:.5rem 0}
+.card ul{margin:0;padding-inline-start:1.1rem;color:var(--muted);font-size:.92rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem}
+.step{background:var(--card);border:1px solid #1e293b;border-radius:.75rem;padding:1rem;text-align:center}
+.step b{color:var(--accent2);display:block;margin-bottom:.35rem}
+.faq details{background:var(--card);border:1px solid #1e293b;border-radius:.75rem;padding:.85rem 1rem;margin-bottom:.6rem}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{color:var(--muted);margin:.5rem 0 0;font-size:.95rem}
+.en{direction:ltr;text-align:left;margin-top:3rem;padding-top:2rem;border-top:1px solid #1e293b}
+footer{text-align:center;margin-top:3rem;color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent2)}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="badge">تسليم خلال 72 ساعة</div>
-      <h1>ZYNTRA Launch Kit</h1>
-      <p class="sub">من صفر حضور → شعار، منشورات، عرض تقديمي، فيديو، وصفحة هبوط. للخليج وأفريقيا وآسيا وباقات التصدير.</p>
-      <a class="cta" href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">احجز مكالمة البداية</a>
-      <div class="markets">
-        <span>الخليج</span><span>أفريقيا</span><span>آسيا</span><span>تصدير الصين</span>
-      </div>
-    </header>
-
-    <h2>الباقات</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Starter</h3>
-        <div class="price">$39–79</div>
-        <ul>
-          <li>شعار احترافي</li>
-          <li>5 تصاميم سوشيال</li>
-          <li>رابط حجز مواعيد</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Growth</h3>
-        <div class="price">$129–199</div>
-        <ul>
-          <li>كل ما في Starter</li>
-          <li>عرض تقديمي (Pitch)</li>
-          <li>فيديو 30 ثانية</li>
-          <li>مساحة Notion</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Pro</h3>
-        <div class="price">$249–399</div>
-        <ul>
-          <li>كل ما في Growth</li>
-          <li>صفحة هبوط منشورة</li>
-          <li>نظام Figma</li>
-          <li>لوحة مهام Linear</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Export</h3>
-        <div class="price">$199–349</div>
-        <ul>
-          <li>Pitch بالإنجليزية</li>
-          <li>صفحة للمستوردين</li>
-          <li>فيديو ترويجي قصير</li>
-        </ul>
-      </div>
-    </div>
-
-    <section class="en">
-      <h2>Launch Kit in 72 hours</h2>
-      <p class="sub" style="margin:0 0 1rem; max-width:none;">Professional presence pack for Gulf, Africa, Asia, and China export sellers. Fixed packages. Fast delivery.</p>
-      <a class="cta" href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">Book a kickoff call</a>
-    </section>
-
-    <footer>
-      <p>ZYNTRA · GitHub: <a href="https://github.com/Johanne012/zyntra-flowbrief" style="color:var(--accent2)">zyntra-flowbrief</a></p>
-    </footer>
-  </div>
+<div class="wrap">
+<header>
+<div class="badge">تسليم خلال 72 ساعة</div>
+<div class="pilot">عرض تجريبي: أول 5 عملاء — Starter بـ $29</div>
+<h1>ZYNTRA Launch Kit</h1>
+<p class="sub">من صفر حضور إلى شعار ومنشورات وعرض وفيديو وصفحة — للخليج وأفريقيا وآسيا وباقات التصدير.</p>
+<a class="cta" href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">احجز مكالمة البداية</a>
+<a class="cta secondary" href="https://github.com/Johanne012/zyntra-flowbrief" target="_blank" rel="noopener">المستودع</a>
+<div class="markets"><span>الخليج</span><span>أفريقيا</span><span>آسيا</span><span>تصدير الصين</span></div>
+</header>
+<h2>كيف يعمل؟</h2>
+<div class="steps">
+<div class="step"><b>1</b>احجز مكالمة قصيرة أو أرسل نبذة</div>
+<div class="step"><b>2</b>ننفّذ الباقة خلال 48–72 ساعة</div>
+<div class="step"><b>3</b>تستلم الروابط والملفات جاهزة</div>
+</div>
+<h2>الباقات</h2>
+<div class="grid">
+<div class="card featured"><h3>Starter</h3><div class="price">$39–79 <small style="color:var(--muted);font-weight:500">| تجريبي $29</small></div><ul><li>شعار احترافي</li><li>5 تصاميم سوشيال</li><li>رابط حجز مواعيد</li></ul></div>
+<div class="card"><h3>Growth</h3><div class="price">$129–199</div><ul><li>كل ما في Starter</li><li>عرض تقديمي</li><li>فيديو 30 ثانية</li><li>مساحة Notion</li></ul></div>
+<div class="card"><h3>Pro</h3><div class="price">$249–399</div><ul><li>كل ما في Growth</li><li>صفحة هبوط منشورة</li><li>نظام Figma</li><li>لوحة مهام</li></ul></div>
+<div class="card"><h3>Export</h3><div class="price">$199–349</div><ul><li>Pitch بالإنجليزية</li><li>صفحة للمستوردين</li><li>فيديو ترويجي</li></ul></div>
+</div>
+<h2>أسئلة شائعة</h2>
+<div class="faq">
+<details><summary>كم يستغرق التسليم؟</summary><p>48 إلى 72 ساعة بعد تأكيد الطلب والدفع.</p></details>
+<details><summary>ما اللغات المتوفرة؟</summary><p>العربية (أولوية الخليج) والإنجليزية. الفرنسية عند الطلب لغرب أفريقيا.</p></details>
+<details><summary>هل هناك تعديلات؟</summary><p>جولة تعديلات واحدة مجانًا على الشعار والمنشورات خلال 7 أيام من التسليم.</p></details>
+</div>
+<section class="en">
+<h2>Launch Kit in 72 hours</h2>
+<p class="sub" style="margin:0 0 1rem;max-width:none">Logo, social pack, pitch, video, and optional landing — for Gulf, Africa, Asia, and export sellers. Pilot: first 5 Starter clients at $29.</p>
+<a class="cta" href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">Book a kickoff call</a>
+</section>
+<footer>
+<p>ZYNTRA · <a href="https://github.com/Johanne012/zyntra-flowbrief">GitHub</a> · <a href="https://zyntra-launch-kit-zyntra.vercel.app">Live</a></p>
+</footer>
+</div>
 </body>
 </html>
