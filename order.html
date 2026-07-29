@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>اطلب — ZYNTRA Launch Kit</title>
+<style>
+:root{--bg:#0b1220;--card:#121a2b;--text:#e8eefc;--muted:#9aa8c7;--accent:#2dd4bf;--accent2:#38bdf8}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+nav{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;padding:1rem;border-bottom:1px solid #1e293b;font-size:.9rem}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.wrap{max-width:560px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:1.6rem;text-align:center}
+.sub{color:var(--muted);text-align:center;margin-bottom:1.5rem}
+label{display:block;margin:.85rem 0 .35rem;font-size:.9rem;color:var(--muted)}
+input,select,textarea{width:100%;padding:.75rem;border-radius:.5rem;border:1px solid #1e293b;background:var(--card);color:var(--text);font:inherit}
+button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.25rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042f2e;font-weight:700;border:0;padding:.95rem;border-radius:.75rem;cursor:pointer;text-decoration:none}
+.note{font-size:.85rem;color:var(--muted);margin-top:1rem;text-align:center}
+</style>
+</head>
+<body>
+<nav>
+<a href="/">الرئيسية</a>
+<a href="/order.html">اطلب الآن</a>
+<a href="/about.html">من نحن</a>
+<a href="/contact.html">تواصل</a>
+</nav>
+<div class="wrap">
+<h1>طلب باقة Launch Kit</h1>
+<p class="sub">بعد الإرسال احجز مكالمة قصيرة لتأكيد التفاصيل والدفع.</p>
+<form action="https://calendly.com/zyntrabusinesszyntraal/30min" method="get" target="_blank">
+<label>الاسم / النشاط</label>
+<input name="name" required placeholder="اسمك أو اسم المشروع" />
+<label>البريد أو واتساب</label>
+<input name="contact" required placeholder="email أو رقم" />
+<label>السوق</label>
+<select name="market">
+<option>الخليج</option><option>أفريقيا</option><option>آسيا</option><option>تصدير الصين</option><option>أخرى</option>
+</select>
+<label>الباقة</label>
+<select name="package">
+<option>Starter — تجريبي $29</option>
+<option>Starter $39–79</option>
+<option>Growth $129–199</option>
+<option>Pro $249–399</option>
+<option>Export $199–349</option>
+</select>
+<label>نبذة عن المشروع (سطرين)</label>
+<textarea name="brief" rows="3" placeholder="ماذا يفعل مشروعك؟"></textarea>
+<button type="submit">متابعة إلى حجز الموعد</button>
+</form>
+<p class="note">أو راسلنا مباشرة من <a href="/contact.html" style="color:var(--accent2)">صفحة التواصل</a></p>
+</div>
+</body>
+</html>
