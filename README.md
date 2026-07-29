@@ -16,14 +16,18 @@
 - **Asia** — English, e-commerce & SaaS
 - **China export** — English materials for overseas buyers
 
-## Pipeline (tools)
+## Live assets
+- **Landing page (source):** [index.html](./index.html)
+- **Deploy to Vercel:** [vercel.com/new/clone?repository-url=https://github.com/Johanne012/zyntra-flowbrief](https://vercel.com/new/clone?repository-url=https://github.com/Johanne012/zyntra-flowbrief)
+- **Or GitHub Pages:** Settings → Pages → Deploy from branch `main` / root
+- **Book kickoff:** [Calendly 30 min](https://calendly.com/zyntrabusinesszyntraal/30min)
+- **Promo video:** completed (HeyGen project `2631172a-cc3b-49b7-8b30-de2fa925dc76`)
+
+## Pipeline
 Canva · Gamma · HeyGen · Notion · Linear · Figma · Excalidraw · GitHub · Vercel · Calendly · Gmail
 
 ## Status
-MVP systems live (Jul 2026). Public landing in progress.
-
-## Book a kickoff
-[Calendly — 30 min](https://calendly.com/zyntrabusinesszyntraal/30min)
+MVP live — Jul 2026. Landing ready to publish. First pilot clients: Gulf + English markets.
 
 ---
 ZYNTRA · Launch faster, look professional.
