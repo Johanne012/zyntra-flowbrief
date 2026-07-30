@@ -16,6 +16,8 @@ label{display:block;margin:.85rem 0 .35rem;font-size:.9rem;color:var(--muted)}
 input,select,textarea{width:100%;padding:.75rem;border-radius:.5rem;border:1px solid #1e293b;background:var(--card);color:var(--text);font:inherit}
 button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.25rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042f2e;font-weight:700;border:0;padding:.95rem;border-radius:.75rem;cursor:pointer;text-decoration:none}
 .note{font-size:.85rem;color:var(--muted);margin-top:1rem;text-align:center}
+.pay{background:var(--card);border:1px solid #1e293b;border-radius:.75rem;padding:1rem;margin-top:1.5rem;font-size:.9rem}
+.pay code{word-break:break-all;color:var(--accent);font-size:.8rem}
 </style>
 </head>
 <body>
@@ -27,8 +29,8 @@ button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.25rem
 </nav>
 <div class="wrap">
 <h1>طلب باقة Launch Kit</h1>
-<p class="sub">بعد الإرسال احجز مكالمة قصيرة لتأكيد التفاصيل والدفع.</p>
-<form action="https://calendly.com/zyntrabusinesszyntraal/30min" method="get" target="_blank">
+<p class="sub">1) اختر الباقة 2) ادفع 3) أرسل التأكيد — التسليم خلال 72 ساعة</p>
+<form action="mailto:zyntrabusinesszyntraal@gmail.com" method="get" enctype="text/plain">
 <label>الاسم / النشاط</label>
 <input name="name" required placeholder="اسمك أو اسم المشروع" />
 <label>البريد أو واتساب</label>
@@ -47,9 +49,17 @@ button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.25rem
 </select>
 <label>نبذة عن المشروع (سطرين)</label>
 <textarea name="brief" rows="3" placeholder="ماذا يفعل مشروعك؟"></textarea>
-<button type="submit">متابعة إلى حجز الموعد</button>
+<button type="submit">إرسال الطلب بالبريد</button>
 </form>
-<p class="note">أو راسلنا مباشرة من <a href="/contact.html" style="color:var(--accent2)">صفحة التواصل</a></p>
+<div class="pay">
+<p><strong>الدفع بالعملات المشفرة (BTC)</strong></p>
+<p>العنوان:</p>
+<code>bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u</code>
+<p style="margin-top:.75rem;color:var(--muted)">بعد التحويل أرسل <strong>TxID</strong> + اسم الباقة إلى:<br/>
+<a href="mailto:zyntrabusinesszyntraal@gmail.com" style="color:var(--accent2)">zyntrabusinesszyntraal@gmail.com</a></p>
+<p style="margin-top:.75rem"><a href="https://calendly.com/zyntrabusinesszyntraal/30min" style="color:var(--accent2)" target="_blank" rel="noopener">أو احجز مكالمة تأكيد</a></p>
+</div>
+<p class="note">أسعار تجريبية: أول 5 عملاء Starter بـ $29</p>
 </div>
 </body>
 </html>
