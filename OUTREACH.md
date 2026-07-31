@@ -1,15 +1,34 @@
-# Outreach scripts
+# Outreach scripts — ZYNTRA Launch Kit
 
-## Arabic (Gulf)
-السلام عليكم، لاحظت مشروعك. نقدم باقة إطلاق خلال 72 ساعة: شعار + 5 منشورات + حجز مواعيد. تجريبي $29 لأول 5. الموقع: https://zyntra-launch-kit-zyntra.vercel.app — حجز: https://calendly.com/zyntrabusinesszyntraal/30min
+## Live URLs (correct)
+- Site: https://zyntra-flowbrief.vercel.app
+- Order: https://zyntra-flowbrief.vercel.app/order.html
+- Calendly: https://calendly.com/zyntrabusinesszyntraal/30min
+- Email: zyntrabusinesszyntraal@gmail.com
 
-## English (Africa / Asia)
-Hi — we deliver logo + 5 social designs + booking link in 72 hours. Pilot Starter $29 for first 5 clients. Site: https://zyntra-launch-kit-zyntra.vercel.app — Book: https://calendly.com/zyntrabusinesszyntraal/30min
+## Arabic (Gulf / Arabic markets)
+السلام عليكم،
+نقدم باقة إطلاق احترافية خلال 72 ساعة:
+• شعار
+• 5 تصاميم سوشيال
+• رابط حجز مواعيد
 
-## Channels
-- Gulf: مستقل، خمسات، X، WhatsApp groups
-- Africa/Asia: LinkedIn, Facebook founder groups, Telegram ecom
-- Export: B2B directories + English pitch pack
+عرض تجريبي لأول 5 عملاء: $29 فقط (BTC)
+الموقع: https://zyntra-flowbrief.vercel.app/order.html
+حجز مكالمة: https://calendly.com/zyntrabusinesszyntraal/30min
 
-## Offer
-First 5 Starter clients at $29. Then standard pricing.
+## English (Africa / Asia / Export)
+Hi — we deliver a complete launch pack in 72 hours:
+Logo + 5 social designs + booking link.
+
+Pilot offer: $29 for the first 5 Starter clients (BTC only).
+Site: https://zyntra-flowbrief.vercel.app
+Book a call: https://calendly.com/zyntrabusinesszyntraal/30min
+
+## Channels to post today
+- Gulf: مستقل، خمسات، X، مجموعات واتساب
+- Africa/Asia: LinkedIn, Facebook founder groups, Telegram
+- Export: English pitch + site link
+
+## Offer reminder
+First 5 Starter clients at $29. After that → standard pricing ($39–79+).
