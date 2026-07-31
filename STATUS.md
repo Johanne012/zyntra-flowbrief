@@ -1,27 +1,32 @@
-# Execution Status — Updated automatically
+# STATUS — آخر نبضة
 
-## Done without user intervention
+**التاريخ:** 2026-07-31
 
-| Action | Status | Link |
-|--------|--------|------|
-| Live site conversion upgrade | Done | https://zyntra-flowbrief.vercel.app |
-| Order page improved | Done | /order.html |
-| STACK / LEADS / AUTOMATION / OPS | Done | Repo files |
-| Notion Leads Pipeline DB | Done | https://www.notion.so/e09f00b9d8f642ef934af57567617944 |
-| Seed segments + reference contacts | Done | In Notion DB |
-| Daily automation 08:30 (leads+copy) | Active | Grok Automations |
-| Daily automation 09:00 (ops) | Active | Grok Automations |
-| Owner action email | Sent | zyntrabusinesszyntraal@gmail.com |
-| Partnership outreach drafts | Created | Gmail Drafts |
+## يعمل تلقائياً
+- [x] موقع حي + صفحات تحويل محسّنة
+- [x] Notion Leads Pipeline
+- [x] AUTO PULSE page في Command Center
+- [x] أتمتة 08:30 (Leads + محتوى)
+- [x] أتمتة 09:00 (Ops يومي)
+- [x] HEART.md + STACK + LEADS + AUTOMATION + OPS
+- [x] مسودات Gmail للشراكات
+- [x] إيميل تشغيلي للمالك
 
-## Still requires human (cannot be fully automated safely)
-- Sending WhatsApp messages
-- Posting on خمسات / مستقل / X from personal accounts
-- Confirming BTC payments on-chain
-- Designing actual logos in Canva for paid clients
+## محدود حالياً
+- حد استخدام Automations وصل للحد (لا مهام جدولة إضافية الآن)
+- لا يمكن إرسال واتساب أو النشر على خمسات/X بدون حساب المستخدم
 
-## Next auto runs
-- Every day 08:30 Riyadh: leads queries + outreach copy + social post → email
-- Every day 09:00 Riyadh: daily ops checklist → email
+## الخطوة التالية للنمو
+1. المالك يرسل المسودات وينشر نصاً واحداً
+2. عند وصول أول طلب → تسجيل في Notion + تنفيذ Canva
+3. بعد أول بيع → تحديث SOCIAL بـ social proof
 
-Last update: 2026-07-31
+## المقاييس المستهدفة هذا الأسبوع
+| مؤشر | هدف |
+|------|-----|
+| Leads مسجّلة | 30+ |
+| رسائل مرسلة | 40+ |
+| مبيعات تجريبية | 1+ |
+
+---
+القلب ينبض. النظام حي.
