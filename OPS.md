@@ -1,19 +1,49 @@
-# ZYNTRA Ops — Grok as heartbeat
+# ZYNTRA Daily Ops Playbook
 
-Grok coordinates all connected tools. Human opens social accounts & confirms funds; Grok runs delivery pipeline on request.
+## Goal
+Get the first 5 pilot clients ($29 Starter) as fast as possible.
 
-## Trigger phrases (say to Grok)
-- **طلب جديد** + name + package + TxID → start full delivery
-- **نبض يومي** → status of site, Linear, next content post
-- **محتوى اليوم** → caption + which Canva asset
-- **تحديث الموقع** → edit pages on GitHub (auto Vercel)
+## Daily checklist (15–25 min)
+1. **Post** one Arabic + one English offer (copy in MARKETING.md)
+2. **Reply** to any email / Calendly / WhatsApp within 2 hours
+3. **Check** BTC inbox for new TxID
+4. **Update** Notion Command Center with new leads
+5. **Deliver** any paid order within 72h
 
-## Payment
-BTC: `bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u`  
-Email: zyntrabusinesszyntraal@gmail.com
+## Ready posts (copy-paste)
 
-## Connected stack
-Notion · Linear · Canva · Gamma · HeyGen · GitHub · Vercel · Calendly · Gmail · Excalidraw · Figma
+### Arabic
+باقة إطلاق خلال 72 ساعة:
+• شعار احترافي
+• 5 تصاميم سوشيال
+• رابط حجز مواعيد
 
-## Success metric
-Closed pilot orders (5× Starter $29) + testimonials → raise to standard prices.
+تجريبي لأول 5 فقط: $29 (BTC)
+اطلب الآن: https://zyntra-flowbrief.vercel.app/order.html
+
+### English
+Launch pack in 72 hours — logo, 5 socials, booking link.
+Pilot $29 for first 5 clients (BTC).
+https://zyntra-flowbrief.vercel.app/order.html
+
+## Channels priority
+1. خمسات / مستقل (service listing)
+2. X (Twitter) Arabic + English
+3. WhatsApp / Telegram founder groups
+4. LinkedIn (English)
+5. Calendly link in bio everywhere
+
+## After payment received
+1. Confirm TxID on-chain
+2. Reply to client with timeline
+3. Create Canva designs + Notion workspace
+4. Deliver files + links
+5. Ask for testimonial
+
+## Automation prompts for Grok
+- `محتوى اليوم` → generate today’s Arabic + English posts
+- `حالة الطلبات` → summarize open leads and next actions
+- `تقرير يومي` → short daily status for email/Notion
+
+## Success metric this week
+Close at least 1–2 pilot Starter orders ($29).
