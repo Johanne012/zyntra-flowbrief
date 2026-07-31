@@ -1,49 +1,50 @@
-# ZYNTRA Daily Ops Playbook
+# ZYNTRA Daily & Weekly Ops (مدمج)
 
-## Goal
-Get the first 5 pilot clients ($29 Starter) as fast as possible.
+## الهدف هذا الأسبوع
+إغلاق أول 1–3 مبيعات تجريبية (Starter $29).
 
-## Daily checklist (15–25 min)
-1. **Post** one Arabic + one English offer (copy in MARKETING.md)
-2. **Reply** to any email / Calendly / WhatsApp within 2 hours
-3. **Check** BTC inbox for new TxID
-4. **Update** Notion Command Center with new leads
-5. **Deliver** any paid order within 72h
+## القائمة اليومية (15–30 دقيقة)
+1. **جمع leads** (10 دقائق)
+   - افتح geoleadscraper أو Google Maps
+   - استخرج 15–25 جهة من استعلامات LEADS.md
+2. **تواصل** (10 دقائق)
+   - أرسل 8–12 رسالة من قوالب LEADS.md
+3. **نشر** (5 دقائق)
+   - انشر نصاً واحداً من SOCIAL.md على X أو خمسات
+4. **ردود**
+   - رد على أي إيميل/Calendly خلال ساعتين
+5. **تسجيل**
+   - حدّث Notion Command Center أو Linear
 
-## Ready posts (copy-paste)
+## القائمة الأسبوعية
+- الاثنين: حملة leads خليج
+- الثلاثاء: حملة أفريقيا
+- الأربعاء: محتوى + خمسات/مستقل
+- الخميس: متابعة كل من لم يرد
+- الجمعة: تقرير أسبوعي + تحسين النصوص
+- السبت/الأحد: تسليم الطلبات فقط
 
-### Arabic
-باقة إطلاق خلال 72 ساعة:
-• شعار احترافي
-• 5 تصاميم سوشيال
-• رابط حجز مواعيد
+## عند وصول طلب مدفوع
+1. تأكيد TxID
+2. رد فوري بالجدول الزمني
+3. تنفيذ (Canva → شعار + 5 منشورات)
+4. تسليم الروابط
+5. طلب شهادة/تقييم
+6. نشر شهادة (إن وُجدت)
 
-تجريبي لأول 5 فقط: $29 (BTC)
-اطلب الآن: https://zyntra-flowbrief.vercel.app/order.html
+## أدوات مدمجة في التشغيل
+- الموقع: https://zyntra-flowbrief.vercel.app
+- الطلب: /order.html
+- Calendly + Gmail + BTC
+- Notion Command Center
+- Grok Daily Ops (إيميل يومي 9 ص)
+- قوالب من: Prospex + n8n + claude-seo ideas
 
-### English
-Launch pack in 72 hours — logo, 5 socials, booking link.
-Pilot $29 for first 5 clients (BTC).
-https://zyntra-flowbrief.vercel.app/order.html
-
-## Channels priority
-1. خمسات / مستقل (service listing)
-2. X (Twitter) Arabic + English
-3. WhatsApp / Telegram founder groups
-4. LinkedIn (English)
-5. Calendly link in bio everywhere
-
-## After payment received
-1. Confirm TxID on-chain
-2. Reply to client with timeline
-3. Create Canva designs + Notion workspace
-4. Deliver files + links
-5. Ask for testimonial
-
-## Automation prompts for Grok
-- `محتوى اليوم` → generate today’s Arabic + English posts
-- `حالة الطلبات` → summarize open leads and next actions
-- `تقرير يومي` → short daily status for email/Notion
-
-## Success metric this week
-Close at least 1–2 pilot Starter orders ($29).
+## مقاييس النجاح
+| المؤشر | الهدف الأسبوعي |
+|--------|----------------|
+| Leads مجمعة | 50+ |
+| رسائل مرسلة | 50+ |
+| ردود | 5+ |
+| مكالمات | 2+ |
+| مبيعات | 1+ |
