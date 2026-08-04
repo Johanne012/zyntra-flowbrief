@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Required files exist
+        run: |
+          test -f index.html
+          test -f vercel.json
+          test -f README.md
+
+      - name: vercel.json must not blanket-rewrite to index.html
+        run: |
+          if grep -qE '"source"\s*:\s*"/\(\.\*\)"' vercel.json 2>/dev/null; then
+            if grep -qE '"destination"\s*:\s*"/index\.html"' vercel.json; then
+              echo "ERROR: blanket rewrite /(.*) -> /index.html breaks multi-page static sites"
+              exit 1
+            fi
+          fi
+          echo "vercel.json routing check passed"
+
+      - name: HTML pages present
+        run: |
+          for f in index.html order.html about.html contact.html; do
+            if [ -f "$f" ]; then echo "OK $f"; else echo "missing $f (optional)"; fi
+          done
