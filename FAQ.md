@@ -1,22 +1,41 @@
 # FAQ — ZYNTRA Launch Kit
 
-## How long does delivery take?
-48–72 hours after brief + payment confirmation.
+## كم يستغرق التسليم؟
+48 إلى 72 ساعة بعد تأكيد الدفع وإرسال نبذة المشروع.
 
-## What languages?
-Arabic (Gulf-first) and English. French available on request for West Africa.
+## ما طريقة الدفع؟
+Bitcoin (BTC) فقط حاليًا.  
+بعد التحويل أرسل **TxID** + اسم الباقة + النبذة إلى البريد.
 
-## What do I need to provide?
-Business name, one-line description, preferred tone, and any brand colors/references. A 15-min Calendly call speeds things up.
+عنوان BTC:  
+`bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u`
 
-## Revisions?
-One free revision round on logo and social pack within 7 days of delivery.
+## هل هناك تعديلات؟
+جولة واحدة مجانية خلال 7 أيام من التسليم (للشعار وباقة المنشورات).
 
-## Payment?
-Agreed before work starts. Methods: PayPal / bank transfer / local options by market.
+## ما اللغات؟
+العربية (أولوية الخليج) والإنجليزية.  
+الفرنسية متاحة عند الطلب (غرب أفريقيا).
 
-## Who is this for?
-New shops, consultants, agencies, exporters, and small SaaS who need a professional first impression fast.
+## ماذا أحتاج أن أقدم؟
+- اسم النشاط / المشروع
+- وصف سطرين
+- النبرة المفضلة (إن وُجدت)
+- أي ألوان أو مراجع بصرية
 
-## Live site
-https://zyntra-launch-kit-zyntra.vercel.app
+مكالمة 15 دقيقة عبر Calendly تسرّع العمل.
+
+## لمن هذه الباقة؟
+المتاجر الجديدة، المستشارون، الوكالات الصغيرة، المصدّرون، ومشاريع SaaS التي تحتاج حضورًا احترافيًا سريعًا.
+
+## الموقع الحي
+**https://zyntra-flowbrief.vercel.app**
+
+## الروابط المهمة
+- طلب الباقة: https://zyntra-flowbrief.vercel.app/order
+- حجز مكالمة: https://calendly.com/zyntrabusinesszyntraal/30min
+- البريد: zyntrabusinesszyntraal@gmail.com
+
+---
+
+*آخر تحديث: 2026-08-18 — أُصلح الرابط الخاطئ وأُعيدت صياغة الأسئلة.*
