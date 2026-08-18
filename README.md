@@ -18,6 +18,7 @@
 | Growth | + Pitch + video + Notion space | $129–199 |
 | Pro | + Live landing page + Figma + task board | $249–399 |
 | Export | English pack for importers | $199–349 |
+| Maintenance (monthly) | Ongoing posts + light updates | $39–59/mo |
 
 ## Site pages
 
@@ -25,6 +26,7 @@
 |------|-----|
 | Home | [zyntra-flowbrief.vercel.app](https://zyntra-flowbrief.vercel.app/) |
 | Order | [/order](https://zyntra-flowbrief.vercel.app/order) |
+| How it works | [/how](https://zyntra-flowbrief.vercel.app/how) |
 | About | [/about](https://zyntra-flowbrief.vercel.app/about) |
 | Contact | [/contact](https://zyntra-flowbrief.vercel.app/contact) |
 
@@ -39,42 +41,22 @@
 | File | Purpose |
 |------|--------|
 | **HEART.md** | Core identity + rules (Grok as engine) |
-| **STATUS.md** | Real current status (always dated) |
-| **LEARNING.md** | Learning log after every cycle |
-| `OPS.md` | Daily & weekly operations |
-| `AUTOMATION.md` | Automation playbooks |
-| `LEADS.md` | Lead generation + message templates |
-| `OUTREACH.md` | Outreach scripts |
-| `SOCIAL.md` | Ready-to-post social copy |
-| `MARKETING.md` | Marketing campaigns |
-| `PAYMENT.md` | Payment flow |
-| `FAQ.md` | Frequently asked questions |
-| `STACK.md` | Integrated open-source tools |
-
-## How the engine works
-
-1. Grok reads current state
-2. Updates STATUS / HEART / LEARNING when needed
-3. Executes paid orders (register → confirm → deliver → document)
-4. Learns and writes improvements back into the repo
-
-## Deploy
-
-```bash
-npx vercel --yes
-```
-
-Or import the repo on [vercel.com/new](https://vercel.com/new).
-
-> This is a static multi-page site. Do **not** rewrite all routes to `index.html`.
+| **STATUS.md** | Real current status |
+| **LEARNING.md** | Learning log |
+| **ORDERS.md** | Order board |
+| **DELIVERY.md** | Delivery templates |
+| **REFERRAL.md** | Referral system |
+| **MAINTENANCE.md** | Monthly retainer offer |
+| **INDUSTRY.md** | Industry-specific notes |
+| OPS / AUTOMATION / LEADS / OUTREACH / SOCIAL / MARKETING / PAYMENT / FAQ / STACK | Operations |
 
 ## Status (2026-08-18)
 
-✅ Site live  
-✅ System restarted  
+✅ Full system upgrade completed  
 ✅ Grok integrated as core engine  
-✅ Learning loop restored  
-✅ Errors fixed  
+✅ Order board + delivery templates live  
+✅ How-it-works page + stronger EN section  
+✅ Referral + maintenance + industry packs documented  
 🚀 Ready for first pilot sales
 
 ---
