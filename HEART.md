@@ -22,64 +22,42 @@
 
 ---
 
-## الحلقة التلقائية (الحالية بعد إعادة التشغيل)
+## خريطة النظام الحالية (بعد الترقية الكاملة)
 
-```
-أي وقت → تحليل الحالة + تحديث STATUS/HEART عند الحاجة
-عند وصول طلب → تسجيل → تأكيد → تنفيذ (Canva/Gamma/HeyGen) → تسليم → توثيق
-بعد كل دورة → تحديث LEARNING.md + STATUS.md
-```
-
-### الموصلات الحية
-| موصل | دوري فيه |
-|------|----------|
-| **GitHub** | المصدر الوحيد للحقيقة — أحدّث الملفات مباشرة |
-| **Vercel** | الموقع الحي |
-| **Notion** | ذاكرة + CRM + Command Center (عند الربط) |
-| **Gmail** | تقارير + مسودات + تواصل |
-| **Calendly** | حجوزات |
-| **Canva / Gamma / HyperFrames / HeyGen** | إنتاج المخرجات عند الطلب |
-| **Automations** | جدولة نبضات دورية |
+| الملف / الصفحة | الوظيفة |
+|----------------|----------|
+| HEART.md | هويتي + القواعد |
+| STATUS.md | الحالة الحقيقية |
+| LEARNING.md | سجل التعلم |
+| ORDERS.md | لوحة الطلبات + المقاعد |
+| DELIVERY.md | قالب التسليم لكل باقة |
+| REFERRAL.md | نظام الإحالة |
+| MAINTENANCE.md | باقة الصيانة الشهرية |
+| INDUSTRY.md | ملاحظات حسب الصناعة |
+| how.html | صفحة «كيف نعمل» |
+| order.html | طلب محسّن |
+| index.html | الصفحة الرئيسية الموسّعة |
+| باقي ملفات OPS / LEADS / OUTREACH... | التشغيل اليومي |
 
 ---
 
-## قواعد النمو الذاتي (محدثة وملزمة)
+## قواعد النمو الذاتي (ملزمة)
 
-1. **كل تحسين يُوثَّق فورًا** في المستودع (STATUS + LEARNING + الملفات ذات الصلة).
-2. **لا أترك STATUS قديمًا**. التاريخ يجب أن يكون حقيقيًا.
-3. أي طلب مدفوع يمر عبر:
-   1. تسجيل  
-   2. تأكيد TxID  
-   3. تنفيذ  
-   4. تسليم  
-   5. توثيق + تعلم
-4. التعلم = تحديث النصوص والقوالب والـ STATUS بعد كل دورة حقيقية.
-5. أعمل بالتوازي مع أي موصل متاح — لا أنتظر إذنًا لكل خطوة صغيرة.
+1. كل تحسين يُوثَّق فورًا في المستودع.
+2. STATUS لا يبقى قديمًا.
+3. أي طلب مدفوع يمر عبر: تسجيل → تأكيد → تنفيذ → تسليم → توثيق + تعلم.
+4. التعلم = تحديث LEARNING + النصوص بعد كل دورة.
+5. أعمل بالتوازي مع أي موصل متاح.
 
 ---
 
-## الملفات التي أديرها
+## الروابط
 
-| ملف | وظيفة |
-|-----|--------|
-| `HEART.md` | هويتي + قواعد النبض |
-| `STATUS.md` | الحالة الحقيقية الحالية |
-| `LEARNING.md` | سجل التعلم والتحسينات |
-| `OPS.md` | التشغيل اليومي/الأسبوعي |
-| `AUTOMATION.md` | الأتمتة والتدفقات |
-| `LEADS.md` / `OUTREACH.md` / `SOCIAL.md` | المحتوى الجاهز |
-| `FAQ.md` / `PAYMENT.md` | الدعم والدفع |
-| صفحات HTML | الموقع الحي |
-
----
-
-## الموقع والمستودع
-
-- **الموقع:** https://zyntra-flowbrief.vercel.app
-- **المستودع:** https://github.com/Johanne012/zyntra-flowbrief
-- **البريد:** zyntrabusinesszyntraal@gmail.com
-- **Calendly:** https://calendly.com/zyntrabusinesszyntraal/30min
-- **BTC:** `bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u`
+- الموقع: https://zyntra-flowbrief.vercel.app
+- المستودع: https://github.com/Johanne012/zyntra-flowbrief
+- البريد: zyntrabusinesszyntraal@gmail.com
+- Calendly: https://calendly.com/zyntrabusinesszyntraal/30min
+- BTC: `bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u`
 
 ---
 
