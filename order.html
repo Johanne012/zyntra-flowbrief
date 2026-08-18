@@ -10,35 +10,42 @@
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 nav{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;padding:1rem;border-bottom:1px solid #1e293b;font-size:.9rem}
 nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
-.wrap{max-width:560px;margin:0 auto;padding:2rem 1.25rem 4rem}
+.wrap{max-width:580px;margin:0 auto;padding:2rem 1.25rem 4rem}
 h1{font-size:1.7rem;text-align:center;margin-bottom:.4rem}
 .sub{color:var(--muted);text-align:center;margin-bottom:1.2rem}
 .pilot{background:#f59e0b18;border:1px solid #f59e0b55;color:var(--warn);padding:.6rem 1rem;border-radius:.6rem;text-align:center;font-size:.92rem;margin-bottom:1.4rem;font-weight:600}
+.seats{text-align:center;font-size:.9rem;color:var(--accent);margin-bottom:1.2rem}
 label{display:block;margin:.9rem 0 .35rem;font-size:.9rem;color:var(--muted)}
 input,select,textarea{width:100%;padding:.8rem;border-radius:.5rem;border:1px solid #1e293b;background:var(--card);color:var(--text);font:inherit}
-button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.3rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042f2e;font-weight:700;border:0;padding:1rem;border-radius:.75rem;cursor:pointer;text-decoration:none;font-size:1.05rem}
+button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042f2e;font-weight:700;border:0;padding:1rem;border-radius:.75rem;cursor:pointer;text-decoration:none;font-size:1.05rem}
 .note{font-size:.85rem;color:var(--muted);margin-top:1.1rem;text-align:center}
 .pay{background:var(--card);border:1px solid #1e293b;border-radius:.85rem;padding:1.2rem;margin-top:1.6rem;font-size:.92rem}
 .pay strong{color:var(--accent)}
 .pay code{display:block;word-break:break-all;color:var(--accent);font-size:.82rem;background:#0b1220;padding:.7rem;border-radius:.4rem;margin:.5rem 0;border:1px solid #1e293b}
-.steps-mini{display:flex;flex-direction:column;gap:.4rem;margin:1rem 0;font-size:.9rem;color:var(--muted)}
-.steps-mini span{color:var(--accent2)}
+.steps-mini{margin:1rem 0;font-size:.9rem;color:var(--muted);line-height:1.8}
+.steps-mini b{color:var(--accent2)}
+.alt{margin-top:1.2rem;padding-top:1rem;border-top:1px solid #1e293b;text-align:center;font-size:.9rem}
+.alt a{color:var(--accent2)}
+.copy-btn{margin-top:.4rem;padding:.4rem .8rem;font-size:.8rem;background:#1e293b;color:var(--accent);border:1px solid #2dd4bf44;border-radius:.4rem;cursor:pointer}
 </style>
 </head>
 <body>
 <nav>
 <a href="/">الرئيسية</a>
 <a href="/order.html">اطلب الآن</a>
+<a href="/how.html">كيف نعمل</a>
 <a href="/about.html">من نحن</a>
 <a href="/contact.html">تواصل</a>
 <a href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">حجز</a>
 </nav>
 <div class="wrap">
 <h1>طلب باقة Launch Kit</h1>
-<p class="sub">اختر · ادفع · أرسل التأكيد · استلم خلال 72 ساعة</p>
+<p class="sub">ادفع ← أرسل التأكيد ← استلم خلال 48–72 ساعة</p>
 
 <div class="pilot">عرض تجريبي: Starter بـ $29 لأول 5 عملاء فقط</div>
+<div class="seats">المقاعد المتبقية: <strong>5 من 5</strong></div>
 
+<!-- نموذج مبسّط يفتح البريد مع بيانات جاهزة + تعليمات واضحة -->
 <form action="mailto:zyntrabusinesszyntraal@gmail.com" method="get" enctype="text/plain">
 <label>الاسم / اسم النشاط</label>
 <input name="name" required placeholder="اسمك أو اسم المشروع" />
@@ -62,31 +69,37 @@ button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.3rem;
 <option>Growth $129–199</option>
 <option>Pro $249–399</option>
 <option>Export $199–349</option>
+<option>Starter + صيانة شهرية</option>
 </select>
 
 <label>نبذة عن المشروع (سطرين أو ثلاثة)</label>
-<textarea name="brief" rows="3" placeholder="ماذا يفعل مشروعك؟ لمن يبيع؟"></textarea>
+<textarea name="brief" rows="3" placeholder="ماذا يفعل مشروعك؟ لمن يبيع؟ أي ألوان مفضلة؟"></textarea>
 
-<button type="submit">إرسال الطلب بالبريد</button>
+<label>TxID (إذا دفعت مسبقًا — اختياري الآن)</label>
+<input name="txid" placeholder="الصق TxID هنا إن وُجد" />
+
+<button type="submit">إرسال الطلب + البيانات بالبريد</button>
 </form>
 
 <div class="pay">
-<p><strong>طريقة الدفع (Bitcoin فقط)</strong></p>
+<p><strong>طريقة الدفع (Bitcoin فقط حاليًا)</strong></p>
 <div class="steps-mini">
-<span>1.</span> حول المبلغ إلى العنوان أدناه<br>
-<span>2.</span> انسخ TxID
-<br><span>3.</span> أرسل TxID + اسم الباقة + النبذة إلى البريد
+<b>1.</b> حول المبلغ إلى العنوان أدناه<br>
+<b>2.</b> انسخ TxID كاملًا<br>
+<b>3.</b> أرسل TxID + اسم الباقة + النبذة إلى البريد (أو عبر النموذج أعلاه)
 </div>
 <p>عنوان BTC:</p>
-<code>bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u</code>
-<p style="margin-top:.9rem">بعد التحويل أرسل إلى:<br>
+<code id="btc">bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u</code>
+<button class="copy-btn" onclick="navigator.clipboard.writeText('bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u');this.textContent='تم النسخ ✓'">نسخ العنوان</button>
+<p style="margin-top:1rem">بعد التحويل أرسل إلى:<br>
 <a href="mailto:zyntrabusinesszyntraal@gmail.com" style="color:var(--accent2)">zyntrabusinesszyntraal@gmail.com</a></p>
-<p style="margin-top:.9rem">
-<a href="https://calendly.com/zyntrabusinesszyntraal/30min" style="color:var(--accent2)" target="_blank" rel="noopener">أو احجز مكالمة تأكيد سريعة</a>
-</p>
 </div>
 
-<p class="note">العمل يبدأ بعد تأكيد التحويل على الشبكة. جولة تعديل واحدة مجانية خلال 7 أيام.</p>
+<div class="alt">
+أو <a href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">احجز مكالمة تأكيد 15 دقيقة</a>
+</div>
+
+<p class="note">العمل يبدأ بعد تأكيد التحويل على الشبكة.<br>جولة تعديل واحدة مجانية خلال 7 أيام من التسليم.</p>
 </div>
 </body>
 </html>
