@@ -1,67 +1,56 @@
-# نظام توليد العملاء — ZYNTRA
+# LEADS — توليد عملاء + رسائل جاهزة
 
-مستوحى من **Prospex** (business-leads-ai-automation) + أدوات Google Maps المفتوحة.
+**آخر تحديث:** 2026-08-18
 
-## الهدف الأسبوعي
-50–100 lead مؤهل → 10 رسائل مخصصة يومياً → 1–3 مكالمات → 1 بيع تجريبي على الأقل.
+---
 
-## استعلامات بحث جاهزة (Google Maps / LinkedIn)
+## استعلامات مقترحة (Google Maps / بحث)
 
 ### الخليج
 - شركة تسويق الرياض
 - وكالة إعلانات جدة
 - متجر إلكتروني دبي
-- startup Riyadh
-- digital agency Kuwait
-- e-commerce Bahrain
+- استوديو تصميم الكويت
+- شركة ناشئة البحرين
 
 ### أفريقيا
-- digital agency Lagos
-- startup Nairobi
+- startup Lagos
+- digital agency Nairobi
 - e-commerce Accra
 - marketing agency Cairo
-- SaaS founder Johannesburg
 
 ### آسيا / تصدير
-- import export company Dubai
-- China export agent
-- e-commerce Vietnam
-- SaaS India
+- export company Guangzhou
+- importer Dubai China
+- trading company Istanbul
 
-## تسلسل التواصل (مستوحى من Prospex AI Content Engine)
+---
 
-### رسالة 1 — واتساب / إيميل (عربي)
-السلام عليكم [الاسم]،
-لاحظت مشروعكم في [المجال].
-نقدم باقة إطلاق كاملة خلال 72 ساعة (شعار + 5 منشورات + رابط حجز).
-عرض تجريبي لأول 5 فقط: $29.
-الموقع: https://zyntra-flowbrief.vercel.app/order.html
+## رسالة 1 — عربي
+
+السلام عليكم [الاسم]،  
+شفت شغلكم في [المجال].  
+نقدم باقة إطلاق كاملة خلال 72 ساعة (شعار + 5 منشورات + رابط حجز).  
+عرض تجريبي لأول 5 فقط: **$29**.  
+الموقع: https://zyntra-flowbrief.vercel.app/order  
 هل يناسبكم تجربة سريعة؟
 
-### رسالة 1 — English
-Hi [Name],
-Saw your work in [industry].
-We deliver a full launch pack in 72 hours (logo + 5 socials + booking link).
-Pilot for first 5 clients: $29.
-https://zyntra-flowbrief.vercel.app/order.html
+## رسالة 1 — English
+
+Hi [Name],  
+Saw your work in [industry].  
+We deliver a full launch pack in 72 hours (logo + 5 socials + booking link).  
+Pilot for first 5 clients: **$29**.  
+https://zyntra-flowbrief.vercel.app/order  
 Would a quick trial work for you?
 
-### رسالة 2 — متابعة بعد 48 ساعة
-مجرد تذكير سريع بخصوص باقة الإطلاق.
-إذا كنتم مشغولين يمكن حجز مكالمة 15 دقيقة:
-https://calendly.com/zyntrabusinesszyntraal/30min
+## رسالة 2 — متابعة
+مجرد تذكير سريع بخصوص باقة الإطلاق.  
+العرض التجريبي ما زال متاحًا.
 
-### رسالة 3 — قيمة إضافية
-أرسلنا أمثلة أعمال + جدول التسليم.
-هل تفضلون البدء بـ Starter أم تريدون رؤية باقة Growth؟
+---
 
-## أدوات الاستخراج الموصى بها
-1. https://github.com/ozhehkovski/geoleadscraper (إضافة كروم — الأسهل)
-2. https://github.com/Anonym0usWork1221/GMapsScraper (بايثون — أقوى)
-3. https://github.com/asiifdev/business-leads-ai-automation (نظام كامل لاحقاً)
-
-## بعد جمع الـ CSV
-1. صفِّ النتائج (اسم + هاتف/إيميل + موقع)
-2. أضف عمود "حالة" (جديد / تواصل / رد / ربح)
-3. أرسل 10 رسائل يومياً كحد أقصى
-4. سجّل في Notion Command Center أو Linear
+## أدوات استخراج leads
+- geoleadscraper
+- GMapsScraper
+- Prospex / business-leads-ai-automation

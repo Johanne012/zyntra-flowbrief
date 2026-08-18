@@ -1,34 +1,36 @@
 # Payment — ZYNTRA Launch Kit
 
-## Contact
-Email: **zyntrabusinesszyntraal@gmail.com**
-Calendly: https://calendly.com/zyntrabusinesszyntraal/30min
+**آخر تحديث:** 2026-08-18
 
-## Crypto (primary)
-**Bitcoin (BTC)** network — send exact package amount (USD equivalent at time of payment).
+## التواصل
+- **البريد:** zyntrabusinesszyntraal@gmail.com
+- **Calendly:** https://calendly.com/zyntrabusinesszyntraal/30min
 
-Address (bech32):
+## الدفع الأساسي — Bitcoin (BTC)
+
+عنوان (bech32):
 ```
 bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u
 ```
 
-After payment, email:
-1. Transaction ID (TxID)
-2. Package name (Starter / Growth / Pro / Export)
-3. Your brief (business name + 2 lines)
+### الخطوات
+1. حول المبلغ المطابق لقيمة الباقة (بالدولار في وقت التحويل)
+2. انسخ TxID
+3. أرسل إلى البريد:
+   - TxID
+   - اسم الباقة (Starter / Growth / Pro / Export)
+   - نبذة المشروع (اسم + سطرين)
 
-Work starts after confirmation on-chain.
+العمل يبدأ **بعد تأكيد التحويل على الشبكة**.
 
-## Packages (USD reference)
-| Package | Price |
-|---------|-------|
-| Starter (pilot, first 5) | $29 |
+## الأسعار المرجعية (USD)
+
+| الباقة | السعر |
+|--------|-------|
+| Starter (تجريبي — أول 5) | $29 |
 | Starter | $39–79 |
 | Growth | $129–199 |
 | Pro | $249–399 |
 | Export | $199–349 |
 
-## Notes
-- Only send **BTC** to the address above (wrong network = loss of funds).
-- Do not share private keys or seed phrases with anyone.
-- Other e-payment methods can be added later (PayPal, etc.).
+جولة تعديل واحدة مجانية خلال 7 أيام من التسليم.
