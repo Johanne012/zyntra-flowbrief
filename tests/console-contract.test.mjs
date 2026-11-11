@@ -53,7 +53,7 @@ test("organization onboarding requires a legal incorporation country", () => {
 test("console exposes tenant-scoped read-only activity endpoint", () => {
   assert.match(js, /zyntra-org-activity/);
   assert.match(js, /loadActivity/);
-  assert.match(js, /textContent=String\(value\)/);
+  assert.match(js, /td\.textContent=/);
   assert.match(html, /data-view="activity"/);
   assert.match(html, /activity-panel/);
 });
