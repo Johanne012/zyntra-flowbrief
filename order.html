@@ -82,9 +82,9 @@ form.addEventListener("submit", async (event) => {
   button.textContent = "جارٍ إرسال الطلب...";
   const payload = Object.fromEntries(new FormData(form).entries());
   try {
-    const response = await fetch("/api/orders", {
+    const response = await fetch("https://ijbmdftluptwnglryaqx.supabase.co/functions/v1/zyntra-order-intake", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "apikey": "sb_publishable_dNArmXDvR5C1C_LZlY1sMg_yYaOQh0R" },
       body: JSON.stringify(payload)
     });
     const result = await response.json().catch(() => ({}));
