@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0D3B66">
+<title>ZYNTRA Console</title>
+<link rel="stylesheet" href="/console/styles.css">
+<script src="/console/app.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">Z</span><span>ZYNTRA <small>GLOBAL CONSOLE</small></span></a>
+  <div class="top-actions">
+    <span id="connection-state" class="status-pill">غير متصل</span>
+    <button id="language-toggle" class="button button-quiet" type="button">EN</button>
+  </div>
+</header>
+<main class="shell">
+  <section id="auth-panel" class="auth-layout">
+    <div class="intro">
+      <p class="eyebrow">GLOBAL PLATFORM / CONTROL CENTER</p>
+      <h1>إدارة أعمالك وخدماتك من مساحة واحدة.</h1>
+      <p class="muted">مساحة تشغيل آمنة متعددة المؤسسات. سجّل الدخول أو أنشئ حسابًا للبدء.</p>
+      <ul class="principles">
+        <li>دفتر مالي داخلي مزدوج القيد</li>
+        <li>تكاملات دفع مستقلة ومتعددة المزودين</li>
+        <li>إدارة مؤسسات وصلاحيات منفصلة</li>
+        <li>لا توجد حركة أموال أو تداول آلي مفعّل</li>
+      </ul>
+    </div>
+    <div class="panel auth-card">
+      <div class="tabs">
+        <button class="tab active" data-auth-mode="login" type="button">تسجيل الدخول</button>
+        <button class="tab" data-auth-mode="signup" type="button">إنشاء حساب</button>
+      </div>
+      <form id="auth-form">
+        <label for="auth-email">البريد الإلكتروني</label>
+        <input id="auth-email" type="email" autocomplete="email" required maxlength="254" placeholder="name@company.com">
+        <label for="auth-password">كلمة المرور</label>
+        <input id="auth-password" type="password" autocomplete="current-password" required minlength="12" maxlength="128" placeholder="12 حرفًا على الأقل">
+        <button id="auth-submit" class="button button-primary" type="submit">تسجيل الدخول</button>
+      </form>
+      <p id="auth-message" class="message" role="status" aria-live="polite"></p>
+      <p class="fineprint">لا تشارك كلمة المرور أو رموز التحقق مع أي شخص. لن يطلب منك ZYNTRA عبارة استرداد محفظة أو مفتاحًا خاصًا.</p>
+    </div>
+  </section>
+
+  <section id="app-panel" class="app-layout" hidden>
+    <aside class="sidebar panel">
+      <div class="side-heading">مساحة العمل</div>
+      <label for="organization-select">المؤسسة</label>
+      <select id="organization-select"></select>
+      <button id="new-organization-toggle" class="button button-outline" type="button">+ إضافة مؤسسة</button>
+      <div class="side-divider"></div>
+      <button class="nav-item active" type="button" data-view="overview">نظرة عامة</button>
+      <button class="nav-item" type="button" data-view="payments">المدفوعات</button>
+      <button class="nav-item" type="button" data-view="ledger">دفتر الحسابات</button>
+      <button class="nav-item" type="button" data-view="assets">الأصول والمزودون</button>
+      <button class="nav-item" type="button" data-view="security">الأمن والحوكمة</button>
+      <button id="signout-button" class="button button-quiet signout" type="button">تسجيل الخروج</button>
+    </aside>
+
+    <section class="workspace">
+      <div class="workspace-head">
+        <div><p class="eyebrow">WORKSPACE / OVERVIEW</p><h1 id="workspace-title">نظرة عامة</h1><p id="workspace-subtitle" class="muted">ملخص المؤسسة وحالة الخدمات.</p></div>
+        <button id="refresh-button" class="button button-outline" type="button">تحديث البيانات</button>
+      </div>
+
+      <div id="create-org-panel" class="panel form-panel" hidden>
+        <h2>إضافة مؤسسة</h2>
+        <p class="muted">تُنشأ المؤسسة بحالة «قيد المراجعة». لن تُفعّل أي خدمة مالية تلقائيًا.</p>
+        <form id="organization-form" class="form-grid">
+          <div><label for="legal-name">الاسم القانوني</label><input id="legal-name" required minlength="2" maxlength="180"></div>
+          <div><label for="display-name">الاسم الظاهر</label><input id="display-name" required minlength="2" maxlength="100"></div>
+          <div><label for="organization-slug">معرّف المؤسسة (بالإنجليزية)</label><input id="organization-slug" required pattern="[a-z0-9][a-z0-9-]{2,47}" maxlength="48" placeholder="your-company"></div>
+          <div class="form-action"><button class="button button-primary" type="submit">إنشاء المؤسسة</button></div>
+        </form>
+        <p id="organization-message" class="message" role="status" aria-live="polite"></p>
+      </div>
+
+      <div id="pending-panel" class="panel pending-panel" hidden>
+        <span class="status-dot"></span><div><h2>المؤسسة قيد المراجعة</h2><p class="muted">تم تسجيل المؤسسة بنجاح. ستظل الوظائف المالية معطّلة حتى اعتمادها وإكمال متطلبات الامتثال ومزودي الخدمة.</p></div>
+      </div>
+
+      <div id="overview-panel">
+        <div class="metric-grid">
+          <article class="metric panel"><span>طلبات الدفع الداخلية</span><strong id="metric-intents">—</strong><small>لا تعني تحصيل أموال</small></article>
+          <article class="metric panel"><span>مدفوعات مسجلة كناجحة</span><strong id="metric-succeeded">—</strong><small>تحتاج مطابقة التسوية</small></article>
+          <article class="metric panel"><span>قيود دفتر الحسابات</span><strong id="metric-ledger">—</strong><small>سجل محاسبي داخلي</small></article>
+          <article class="metric panel"><span>الموافقات المعلّقة</span><strong id="metric-approvals">—</strong><small>لا توجد موافقات آلية</small></article>
+        </div>
+        <div class="panel section-panel">
+          <div class="section-head"><h2>جاهزية المنصة</h2><span class="status-pill status-warning">وضع تأسيسي</span></div>
+          <div class="readiness-row"><span>الأصول المفعّلة</span><strong id="metric-assets">0</strong></div>
+          <div class="readiness-row"><span>مزودو الخدمة المفعّلون</span><strong id="metric-providers">0</strong></div>
+          <div class="readiness-row"><span>حالة المؤسسة</span><strong id="organization-status">—</strong></div>
+          <p class="fineprint">لن تظهر خيارات الدفع أو التحويل أو التداول على أنها متاحة قبل اعتماد المسار القانوني والمزود وإكمال اختبارات الأمان والتسوية.</p>
+        </div>
+      </div>
+
+      <div id="feature-panel" class="panel feature-panel" hidden>
+        <p class="eyebrow">CONTROLLED MODULE</p><h2 id="feature-title">الميزة</h2><p id="feature-description" class="muted"></p><span class="status-pill status-warning">غير مفعّلة بعد</span>
+      </div>
+      <p id="app-message" class="message" role="status" aria-live="polite"></p>
+    </section>
+  </section>
+</main>
+<footer>© ZYNTRA · Secure by design · Non-custodial by default</footer>
+</body>
+</html>
