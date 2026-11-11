@@ -12,7 +12,7 @@ ZYNTRA is being developed as a modular, global digital platform. This repository
 - Payment-intent API: JWT required; checks membership, active organization, enabled asset, approved/enabled provider route, merchant country, customer country, method, and amount limits. It stores the selected route ID on the internal intent; it does not charge a provider.
 - Ledger posting/reversal APIs: JWT-protected, finance-role checks, balanced immutable journals, and separate reversal journals.
 - Organization onboarding/review: legal-country-aware, pending by default, maker-checker approval and platform-admin claim.
-- AI governance: agent registry and tool grants are present; agents are disabled and financial execution/signing tools are blocked.
+- AI governance: four global catalog entries (Marketing, Support, R&D, Profit Analytics) are seeded but remain disabled, registry-only, internal-data-only, and without model credentials or tool grants; financial execution/signing tools are blocked.
 - Asset catalogue: 23 seeded assets, all disabled.
 - Provider catalogue: 6 provider records, all disabled.
 - CI: contract tests and Deno checks passed for the merged activity and route-binding changes.
