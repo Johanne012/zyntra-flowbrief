@@ -73,3 +73,6 @@ jobs:
 
       - name: Type-check ledger posting Edge Function
         run: deno check supabase/functions/zyntra-post-ledger/index.ts
+
+      - name: Type-check ledger reversal Edge Function
+        run: deno check supabase/functions/zyntra-reverse-ledger/index.ts
