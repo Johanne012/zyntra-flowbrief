@@ -10,6 +10,7 @@
 | Database | Supabase Postgres 17 | Server-only platform schema and order records |
 | Serverless backend | Supabase Edge Functions | Order intake and payment-intent API |
 | Hosting | Vercel | Static website and preview deployments |
+| Console | Static HTML/CSS/JS | Authenticated onboarding and aggregate dashboard; deployment pending quota |
 | Automation | ChatGPT Automations / connected tools | Human-supervised project tasks and scheduled reports where configured |
 
 ## Candidate components — not yet integrated or enabled
