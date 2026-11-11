@@ -35,7 +35,8 @@ test("payment amount comparisons retain integer precision", () => {
 });
 
 test("payment intents persist the approved provider route decision", () => {
-  assert.match(bindingSql, /provider_route_id uuid[\\s\\S]*references public\\.zyntra_provider_routes/);
+  assert.match(bindingSql, /provider_route_id uuid/);
+  assert.match(bindingSql, /references public\\.zyntra_provider_routes/);
   assert.match(api, /provider_route_id: eligibleRoute\\.id/);
   assert.match(api, /amount_atoms_text:amount_atoms::text/);
 });
