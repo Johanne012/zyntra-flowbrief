@@ -75,7 +75,7 @@ async function createCheckout(req: Request, cors: HeadersInit) {
 
   // Atomic compare-and-set prevents concurrent duplicate checkouts.
   const claim = await fetch(
-    url + "/rest/v1/zyntra_orders?id=eq." + encodeURIComponent(order.id) + "&chargily_checkout_id=is.null",
+    url + "/rest/v1/zyntra_orders?id=eq." + encodeURIComponent(order.id) + "&chargily_checkout_id=is.null&checkout_request_started_at=is.null",
     { method: "PATCH", headers: { ...headers, Prefer: "return=representation" },
       body: JSON.stringify({ checkout_request_started_at: new Date().toISOString(), payment_provider: "chargily" }) },
   );
