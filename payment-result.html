@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حالة الدفع — ZYNTRA</title>
+<style>
+body{margin:0;background:#0b1220;color:#e8eefc;font:16px/1.8 system-ui,sans-serif;display:grid;min-height:100vh;place-items:center}
+main{max-width:560px;margin:24px;padding:28px;background:#121a2b;border:1px solid #26334b;border-radius:18px}
+h1{font-size:1.5rem}p{color:#b8c4dc}.note{padding:12px;background:#17243a;border-radius:10px}
+a{color:#2dd4bf}
+</style></head>
+<body><main>
+<h1>شكرًا لزيارتك ZYNTRA</h1>
+<p id="message">نراجع حالة الدفع من إشعار بوابة الدفع الآمن. الرجاء عدم إغلاق الطلب أو إرسال دفعة ثانية الآن.</p>
+<div class="note">مهم: العودة إلى هذه الصفحة لا تثبت نجاح الدفع. يتم تأكيد الطلب فقط بعد وصول إشعار Chargily الموقّع والتحقق من المبلغ ورقم الطلب.</div>
+<p><a href="/order.html">العودة إلى صفحة الطلبات</a></p>
+</main>
+<script>
+const params = new URLSearchParams(location.search);
+const status = params.get("status");
+const message = document.getElementById("message");
+if (status === "failed") message.textContent = "لم تكتمل عملية الدفع أو تم إلغاؤها. إذا تم خصم المبلغ، تواصل معنا مع رقم الطلب.";
+else message.textContent = "تمت العودة من صفحة الدفع. نتحقق من النتيجة عبر Chargily؛ لا تعتبر هذه الصفحة إيصال دفع.";
+</script></body></html>
