@@ -11,7 +11,7 @@
 | Platform schema | Applied |
 | Provider-neutral ledger | Balanced posting smoke test passed; posted journals immutable |
 | Order intake Edge Function | ACTIVE v3 |
-| Payment intent Edge Function | ACTIVE v4, JWT verification enabled; approved route required and selected route ID persisted |
+| Payment intent Edge Function | ACTIVE v5, JWT verification enabled; approved route required, priority-ordered deterministically, and selected route ID persisted |
 | Organization onboarding API | ACTIVE v3, JWT + CORS allowlist |
 | Organization dashboard API | ACTIVE v2, JWT + membership check |
 | Organization listing API | ACTIVE v1, JWT + membership check |
@@ -49,7 +49,8 @@
 4. Added authenticated, tenant-scoped read-only organization activity API and console tables for payment intents, ledger transactions, approvals, settlement records, and the disabled global AI agent catalog.
 5. Added foreign-key indexes identified by Supabase performance advisors.
 6. Bound each new payment intent to its selected approved provider route; fixed numeric-text idempotency retry handling.
-7. Kept all assets/providers/routes disabled; no live financial activity was enabled.
+7. Added deterministic provider-route priority ordering (priority, creation time, stable route ID).
+8. Kept all assets/providers/routes disabled; no live financial activity was enabled.
 
 ## Highest-priority remaining work
 
