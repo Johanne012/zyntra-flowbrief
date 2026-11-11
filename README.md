@@ -33,6 +33,13 @@ ZYNTRA is being developed as a modular, global digital platform. This repository
 - `docs/`: audits and operating runbooks.
 - `tests/`: CI contract tests.
 
+## Console
+
+- Initial authenticated console: `/console/` (source merged; preview deployment is currently rate-limited).
+- Supabase Auth email/password signup and login.
+- Organization creation, organization selection and aggregate dashboard through JWT-protected Edge Functions.
+- New organizations remain pending until an internal approval process is added.
+
 ## Runtime endpoints
 
 - `zyntra-order-intake`: public enquiry intake, with origin/publishable-key checks, honeypot and rate limiting. It does not accept or verify payments.
