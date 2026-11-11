@@ -26,7 +26,7 @@
 | Provider routes | 0 |
 | Auth users | 0 |
 | Ledger transactions | 0 |
-| AI agents | 0 |
+| AI agents | 4 global catalog entries, all disabled; no model/runtime/tool grants |
 | CI | Contract suite and Deno checks passed for the merged activity and route-binding changes |
 | Vercel preview | READY for the organization activity console branch |
 | Production release | Latest console/financial changes not yet verified on production |
