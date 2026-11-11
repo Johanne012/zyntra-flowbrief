@@ -122,7 +122,7 @@ Deno.serve(async (req: Request) => {
     if (!asset?.id) return reply({ error: "Asset is not configured" }, 409);
 
     const existingResponse = await fetch(
-      rest("zyntra_payment_intents?select=id,amount_atoms,asset_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
+      rest("zyntra_payment_intents?select=id,amount_atoms::text,asset_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
         encodeURIComponent(organizationId) + "&idempotency_key=eq." + encodeURIComponent(idempotencyKey)),
       { headers: adminHeaders },
     );
@@ -141,7 +141,7 @@ Deno.serve(async (req: Request) => {
     if (asset.is_active !== true) return reply({ error: "Asset is not enabled" }, 409);
 
     const routeResponse = await fetch(
-      rest("zyntra_provider_routes?select=id,provider_id,min_amount_atoms,max_amount_atoms,payment_method,customer_country_code&organization_id=eq." +
+      rest("zyntra_provider_routes?select=id,provider_id,min_amount_atoms::text,max_amount_atoms::text,payment_method,customer_country_code&organization_id=eq." +
         encodeURIComponent(organizationId) + "&asset_id=eq." + encodeURIComponent(asset.id) +
         "&merchant_country_code=eq." + encodeURIComponent(organization.incorporation_country) +
         "&enabled=eq.true&approval_status=eq.approved"),
