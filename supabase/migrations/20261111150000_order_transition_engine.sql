@@ -56,9 +56,9 @@ begin
       and request_id = p_request_id;
 
     if found then
-      if v_existing.actor_user_id <> p_actor_user_id
-         or v_existing.details->>'from_status' <> p_expected_status
-         or v_existing.details->>'to_status' <> p_next_status then
+      if v_existing.actor_user_id is distinct from p_actor_user_id
+         or v_existing.details->>'from_status' is distinct from p_expected_status
+         or v_existing.details->>'to_status' is distinct from p_next_status then
         raise exception using errcode = '23505', message = 'Request id was already used for a different transition';
       end if;
       return jsonb_build_object(
