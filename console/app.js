@@ -3,7 +3,8 @@ const SUPABASE_KEY="sb_publishable_dNArmXDvR5C1C_LZlY1sMg_yYaOQh0R";
 const ENDPOINTS={
   organizations:"zyntra-my-organizations",
   createOrganization:"zyntra-create-organization",
-  dashboard:"zyntra-org-dashboard"
+  dashboard:"zyntra-org-dashboard",
+  activity:"zyntra-org-activity"
 };
 let accessToken=null;
 let authMode="login";
@@ -116,7 +117,32 @@ async function createOrganization(event){
  }catch(error){setMessage($("organization-message"),error.message,"error");}
  finally{button.disabled=false;}
 }
-function showFeature(view){
+function renderActivityTable(container,title,rows,columns){
+ const section=document.createElement("section");section.className="activity-section";
+ const heading=document.createElement("h3");heading.textContent=title;section.append(heading);
+ if(!rows.length){const empty=document.createElement("p");empty.className="muted";empty.textContent="لا توجد سجلات.";section.append(empty);container.append(section);return;}
+ const table=document.createElement("table");table.className="activity-table";
+ const thead=document.createElement("thead"),headRow=document.createElement("tr");
+ for(const column of columns){const th=document.createElement("th");th.textContent=column.label;headRow.append(th);}
+ thead.append(headRow);table.append(thead);
+ const tbody=document.createElement("tbody");
+ for(const row of rows){const tr=document.createElement("tr");for(const column of columns){const td=document.createElement("td");const value=row[column.key];td.textContent=value===null||value===undefined||value===""?"—":String(value);tr.append(td);}tbody.append(tr);}
+ table.append(tbody);section.append(table);container.append(section);
+}
+async function loadActivity(){
+ const container=$("activity-content");container.replaceChildren();
+ const loading=document.createElement("p");loading.className="muted";loading.textContent="جارٍ تحميل السجلات...";container.append(loading);
+ try{
+  const data=await api("/functions/v1/"+ENDPOINTS.activity,{organization_id:selectedOrganizationId});
+  container.replaceChildren();
+  renderActivityTable(container,"طلبات الدفع الداخلية",data.activity.payment_intents,[{key:"created_at",label:"التاريخ"},{key:"order_reference",label:"مرجع الطلب"},{key:"amount_atoms",label:"الوحدات"},{key:"status",label:"الحالة"}]);
+  renderActivityTable(container,"دفتر الحسابات",data.activity.ledger_transactions,[{key:"created_at",label:"التاريخ"},{key:"description",label:"الوصف"},{key:"status",label:"الحالة"},{key:"posted_at",label:"تاريخ الترحيل"}]);
+  renderActivityTable(container,"الموافقات",data.activity.approvals,[{key:"created_at",label:"التاريخ"},{key:"action_type",label:"الإجراء"},{key:"resource_type",label:"المورد"},{key:"status",label:"الحالة"},{key:"reason",label:"السبب"}]);
+  renderActivityTable(container,"التسويات المسجلة",data.activity.settlements,[{key:"created_at",label:"التاريخ"},{key:"provider_batch_reference",label:"مرجع المزود"},{key:"gross_atoms",label:"الإجمالي"},{key:"fee_atoms",label:"الرسوم"},{key:"net_atoms",label:"الصافي"},{key:"reconciled_at",label:"تاريخ المطابقة"}]);
+  setMessage($("app-message"),"تم تحميل السجلات للقراءة فقط.","success");
+ }catch(error){container.replaceChildren();const message=document.createElement("p");message.className="message error";message.textContent=error.message||"تعذر تحميل السجلات.";container.append(message);}
+}
+async function showFeature(view){
  currentView=view;
  const names={
   payments:["المدفوعات","تسجيل نوايا الدفع متاح عبر API محمي فقط. لا يوجد مزود أو أصل مفعّل، ولا يمكن تحصيل أموال حاليًا."],
@@ -124,11 +150,11 @@ function showFeature(view){
   assets:["الأصول والمزودون","كتالوج العملات والأصول والمزودين موجود، لكن جميع الأصول والمزودين غير مفعّلين."],
   security:["الأمن والحوكمة","RLS، صلاحيات الخادم، سجل التدقيق وحواجز دفتر الحسابات قيد التطوير والاختبار المستمر."]
  };
- if(view==="overview"){
-  $("feature-panel").hidden=true;$("overview-panel").hidden=false;return;
- }
+ $("activity-panel").hidden=view!=="activity";
+ $("feature-panel").hidden=view==="activity"||view==="overview";
+ $("overview-panel").hidden=view!=="overview";
+ if(view==="activity"){await loadActivity();return;}
  const item=names[view];if(!item)return;
- $("overview-panel").hidden=true;$("feature-panel").hidden=false;
  $("feature-title").textContent=item[0];$("feature-description").textContent=item[1];
 }
 async function signout(){
