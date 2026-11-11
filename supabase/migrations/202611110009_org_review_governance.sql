@@ -77,12 +77,12 @@ declare
   v_approval_id uuid;
 begin
   if p_actor_id is null then raise exception 'Authenticated platform administrator required'; end if;
-  if p_decision not in ('approve','reject','suspend') then raise exception 'Invalid review decision'; end if;
+  if p_decision is null or p_decision not in ('approve','reject') then raise exception 'Invalid review decision'; end if;
   if p_reason is null or char_length(btrim(p_reason)) < 8 then raise exception 'A review reason is required'; end if;
 
   select status into v_status from public.zyntra_organizations where id=p_organization_id for update;
   if not found then raise exception 'Organization not found'; end if;
-  if v_status <> 'pending' and p_decision <> 'suspend' then raise exception 'Only pending organizations can be approved or rejected'; end if;
+  if v_status <> 'pending' then raise exception 'Only pending organizations can be approved or rejected'; end if;
 
   select id, requested_by into v_approval_id, v_requester
   from public.zyntra_approvals
@@ -92,11 +92,11 @@ begin
   if v_approval_id is null then raise exception 'Pending organization approval not found'; end if;
   if v_requester = p_actor_id then raise exception 'Requester cannot approve their own organization'; end if;
 
-  v_new_status := case p_decision when 'approve' then 'active' when 'reject' then 'closed' else 'suspended' end;
+  v_new_status := case p_decision when 'approve' then 'active' else 'closed' end;
 
   update public.zyntra_organizations set status=v_new_status, updated_at=now() where id=p_organization_id;
   update public.zyntra_approvals
-  set status=case p_decision when 'approve' then 'approved' when 'reject' then 'rejected' else 'cancelled' end,
+  set status=case p_decision when 'approve' then 'approved' else 'rejected' end,
       approved_by=p_actor_id, reason=btrim(p_reason), decided_at=now()
   where id=v_approval_id;
 
