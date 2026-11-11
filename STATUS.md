@@ -19,6 +19,7 @@
 | Ledger posting API | ACTIVE v1, JWT + finance role |
 | Ledger reversal API | ACTIVE v1, JWT + finance role |
 | Organization activity API | ACTIVE v2, JWT + tenant membership, read-only activity plus disabled global AI catalog |
+| Platform admin order inbox API | ACTIVE v1, JWT + platform-admin claim, read-only, bounded to 100 records per page |
 | Chargily adapter | ACTIVE v2 but disabled; returns HTTP 410 |
 | Asset catalogue | 23 records, 0 active |
 | Provider catalogue | 6 records, 0 enabled |
@@ -55,11 +56,12 @@
 ## Highest-priority remaining work
 
 1. Finish staff onboarding, role management, and tenant-aware operational console.
-2. Add provider-specific signed webhook adapters, replay protection, deterministic state transitions, and reconciliation.
-3. Add integration tests for tenant isolation, payment lifecycle, duplicate events, ledger posting/reversal, and settlement matching.
-4. Establish one canonical Vercel project/domain and verify the production deployment of the merged console.
-5. Select a first eligible regulated payment partner and complete underwriting, legal, compliance, and safeguarding reviews before activation.
-6. Add operational alerting, backups/restore tests, incident response, and audit retention.
+2. Assign and verify a platform-admin claim through a controlled administrative process before using the order inbox.
+3. Add provider-specific signed webhook adapters, replay protection, deterministic state transitions, and reconciliation.
+4. Add integration tests for tenant isolation, payment lifecycle, duplicate events, ledger posting/reversal, and settlement matching.
+5. Establish one canonical Vercel project/domain and verify the production deployment of the merged console.
+6. Select a first eligible regulated payment partner and complete underwriting, legal, compliance, and safeguarding reviews before activation.
+7. Add operational alerting, backups/restore tests, incident response, and audit retention.
 
 ## Operating rule
 
