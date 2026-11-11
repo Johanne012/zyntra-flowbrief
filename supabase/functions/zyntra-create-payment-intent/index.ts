@@ -122,14 +122,14 @@ Deno.serve(async (req: Request) => {
     if (!asset?.id) return reply({ error: "Asset is not configured" }, 409);
 
     const existingResponse = await fetch(
-      rest("zyntra_payment_intents?select=id,amount_atoms::text,asset_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
+      rest("zyntra_payment_intents?select=id,amount_atoms_text:amount_atoms::text,asset_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
         encodeURIComponent(organizationId) + "&idempotency_key=eq." + encodeURIComponent(idempotencyKey)),
       { headers: adminHeaders },
     );
     if (!existingResponse.ok) return reply({ error: "Idempotency lookup unavailable" }, 503);
     const existing = (await existingResponse.json())?.[0];
     if (existing) {
-      if (String(existing.amount_atoms) !== amountAtoms || existing.asset_id !== asset.id ||
+      if (String(existing.amount_atoms_text) !== amountAtoms || existing.asset_id !== asset.id ||
           (existing.order_reference ?? null) !== orderReference ||
           (existing.requested_method ?? null) !== requestedMethod ||
           (existing.customer_country_code ?? null) !== customerCountryCode) {
@@ -141,7 +141,7 @@ Deno.serve(async (req: Request) => {
     if (asset.is_active !== true) return reply({ error: "Asset is not enabled" }, 409);
 
     const routeResponse = await fetch(
-      rest("zyntra_provider_routes?select=id,provider_id,min_amount_atoms::text,max_amount_atoms::text,payment_method,customer_country_code&organization_id=eq." +
+      rest("zyntra_provider_routes?select=id,provider_id,min_amount_atoms_text:min_amount_atoms::text,max_amount_atoms_text:max_amount_atoms::text,payment_method,customer_country_code&organization_id=eq." +
         encodeURIComponent(organizationId) + "&asset_id=eq." + encodeURIComponent(asset.id) +
         "&merchant_country_code=eq." + encodeURIComponent(organization.incorporation_country) +
         "&enabled=eq.true&approval_status=eq.approved"),
@@ -164,8 +164,8 @@ Deno.serve(async (req: Request) => {
     routes = routes.filter((route: any) => enabledProviderIds.has(route.provider_id));
     const amount = BigInt(amountAtoms);
     const eligibleRoute = routes.find((route: any) =>
-      amount >= BigInt(String(route.min_amount_atoms)) &&
-      (route.max_amount_atoms === null || amount <= BigInt(String(route.max_amount_atoms)))
+      amount >= BigInt(String(route.min_amount_atoms_text)) &&
+      (route.max_amount_atoms_text === null || amount <= BigInt(String(route.max_amount_atoms_text)))
     );
     if (!eligibleRoute) return reply({ error: "No enabled provider route supports this amount" }, 409);
 
@@ -192,7 +192,7 @@ Deno.serve(async (req: Request) => {
       );
       if (retry.ok) {
         const duplicate = (await retry.json())?.[0];
-        if (duplicate && String(duplicate.amount_atoms) === amountAtoms && duplicate.asset_id === asset.id &&
+        if (duplicate && String(duplicate.amount_atoms_text) === amountAtoms && duplicate.asset_id === asset.id &&
             (duplicate.order_reference ?? null) === orderReference &&
             (duplicate.requested_method ?? null) === requestedMethod &&
             (duplicate.customer_country_code ?? null) === customerCountryCode) {
