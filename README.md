@@ -1,64 +1,62 @@
-# ZYNTRA Launch Kit
+# ZYNTRA — Global Platform Workspace
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live](https://img.shields.io/badge/Live-Vercel-black)](https://zyntra-flowbrief.vercel.app)
-[![Engine](https://img.shields.io/badge/Engine-Grok-blue)](HEART.md)
+ZYNTRA is being developed as a modular, global digital platform. This repository currently contains the legacy Launch Kit marketing site plus the first server-side platform foundation. It is **not yet a complete fintech, exchange, broker, wallet custodian or globally available payment service**.
 
-**Professional launch pack in 72 hours** + full open-source growth system.  
-**Core engine:** Grok (xAI) — autonomous, learning, continuously updating.
+## Current verified state
 
-## Live
+- Public website: static HTML hosted through Vercel.
+- Backend: Supabase Postgres and Edge Functions.
+- Platform core schema: organizations, memberships, asset catalog, provider registry, payment intents, payment attempts, provider event inbox, double-entry ledger, FX quotes, settlements, approvals and audit events.
+- Public enquiry form: writes order/enquiry records through a rate-limited server-side Edge Function.
+- Payment-intent API: authenticated JWT required; creates an internal intent only.
+- Regional Chargily checkout: disabled pending eligibility and end-to-end validation.
+- Asset catalogue: 23 seeded assets, all disabled.
+- Provider catalogue: 6 provider records, all disabled.
+- No organizations, customer funds, active payment routes, custody, wallet signing or securities trading are configured.
 
-**https://zyntra-flowbrief.vercel.app**
+## Architecture principles
 
-| Package | Deliverables | Price |
-|---------|--------------|-------|
-| **Starter (pilot)** | Logo + 5 socials + booking link | **$29** (first 5) |
-| Starter | Same | $39–79 |
-| Growth | + Pitch + video + Notion space | $129–199 |
-| Pro | + Live landing page + Figma + task board | $249–399 |
-| Export | English pack for importers | $199–349 |
-| Maintenance (monthly) | Ongoing posts + light updates | $39–59/mo |
+1. Hybrid and non-custodial by default.
+2. Payment orchestration, crypto rails, FX, securities brokerage and market data are separate domains.
+3. No single provider or currency is treated as universal.
+4. Money is stored as integer minor/base units, never floating-point.
+5. Posted ledger journals are balanced per asset and immutable.
+6. All platform tables are server-only until tenant-aware authorization and RLS tests are ready.
+7. AI agents may research, draft, classify and recommend; they do not sign, transfer, pay out or trade.
 
-## Site pages
+## Repository layout
 
-| Page | URL |
-|------|-----|
-| Home | [zyntra-flowbrief.vercel.app](https://zyntra-flowbrief.vercel.app/) |
-| Order | [/order](https://zyntra-flowbrief.vercel.app/order) |
-| How it works | [/how](https://zyntra-flowbrief.vercel.app/how) |
-| About | [/about](https://zyntra-flowbrief.vercel.app/about) |
-| Contact | [/contact](https://zyntra-flowbrief.vercel.app/contact) |
+- `index.html`, `order.html`, `about.html`, `contact.html`, `how.html`: public Launch Kit pages.
+- `supabase/migrations/`: versioned platform schema changes.
+- `supabase/functions/`: server-side Edge Functions.
+- `platform/`: architecture and operational notes.
+- `docs/`: audits and operating runbooks.
+- `tests/`: CI contract tests.
 
-## Contact & Payment
+## Runtime endpoints
 
-- **Email:** zyntrabusinesszyntraal@gmail.com
-- **Calendly:** https://calendly.com/zyntrabusinesszyntraal/30min
-- **BTC:** `bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u`
+- `zyntra-order-intake`: public enquiry intake, with origin/publishable-key checks, honeypot and rate limiting. It does not accept or verify payments.
+- `zyntra-create-payment-intent`: JWT-protected; checks organization membership and enabled asset before creating an internal payment intent. It does not charge or settle.
+- `zyntra-chargily-payments`: disabled; JWT required and responds with HTTP 410.
 
-## System files (living documentation)
+## Not enabled
 
-| File | Purpose |
-|------|--------|
-| **HEART.md** | Core identity + rules (Grok as engine) |
-| **STATUS.md** | Real current status |
-| **LEARNING.md** | Learning log |
-| **ORDERS.md** | Order board |
-| **DELIVERY.md** | Delivery templates |
-| **REFERRAL.md** | Referral system |
-| **MAINTENANCE.md** | Monthly retainer offer |
-| **INDUSTRY.md** | Industry-specific notes |
-| OPS / AUTOMATION / LEADS / OUTREACH / SOCIAL / MARKETING / PAYMENT / FAQ / STACK | Operations |
+- Customer deposits, withdrawals, pooled balances or custody.
+- Crypto signing or bridge execution.
+- Card processing or merchant acquiring.
+- FX execution or payouts.
+- Live securities trading.
+- AI-authorized financial actions.
 
-## Status (2026-08-18)
+## Release gates
 
-✅ Full system upgrade completed  
-✅ Grok integrated as core engine  
-✅ Order board + delivery templates live  
-✅ How-it-works page + stronger EN section  
-✅ Referral + maintenance + industry packs documented  
-🚀 Ready for first pilot sales
+Before any real financial product is enabled, require legal-entity and country eligibility, provider underwriting, compliance and safeguarding review, threat modeling, tenant isolation tests, webhook replay tests, ledger reconciliation, incident response, backup restoration and controlled production rollout.
 
----
+## Links
 
-**ZYNTRA** · Launch faster. Grow smarter. · Powered by Grok · MIT License
+- Repository: https://github.com/Johanne012/zyntra-flowbrief
+- Website: https://zyntra-flowbrief.vercel.app
+- Contact: zyntrabusinesszyntraal@gmail.com
+- Scheduling: https://calendly.com/zyntrabusinesszyntraal/30min
+
+**Status:** foundation in active development; no live financial services are represented as available.
