@@ -49,3 +49,9 @@ jobs:
 
       - name: Type-check order intake Edge Function
         run: deno check supabase/functions/zyntra-order-intake/index.ts
+
+      - name: Type-check payment intent Edge Function
+        run: deno check supabase/functions/zyntra-create-payment-intent/index.ts
+
+      - name: Type-check disabled regional adapter
+        run: deno check supabase/functions/zyntra-chargily-payments/index.ts
