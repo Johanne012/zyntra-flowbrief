@@ -40,7 +40,7 @@ jobs:
           node-version: 22
 
       - name: Run order intake contract tests
-        run: node --test tests/order-intake-contract.test.mjs tests/console-contract.test.mjs tests/ledger-contract.test.mjs tests/ledger-reversal-contract.test.mjs tests/provider-route-contract.test.mjs tests/ai-agent-governance.test.mjs tests/org-activity-contract.test.mjs tests/disabled-agent-catalog.test.mjs tests/admin-order-inbox.test.mjs tests/order-transition-engine.test.mjs tests/order-transition-endpoint.test.mjs
+        run: node --test tests/order-intake-contract.test.mjs tests/console-contract.test.mjs tests/ledger-contract.test.mjs tests/ledger-reversal-contract.test.mjs tests/provider-route-contract.test.mjs tests/ai-agent-governance.test.mjs tests/org-activity-contract.test.mjs tests/disabled-agent-catalog.test.mjs tests/admin-order-inbox.test.mjs tests/order-transition-engine.test.mjs tests/order-transition-endpoint.test.mjs tests/order-transition-console.test.mjs
 
       - name: Set up Deno
         uses: denoland/setup-deno@v2
