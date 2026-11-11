@@ -1,93 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>اطلب الآن — ZYNTRA Launch Kit</title>
-<meta name="description" content="تواصل مع ZYNTRA لمراجعة احتياجك والحصول على نطاق عمل وعرض مناسب." />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>طلب خدمة — ZYNTRA</title>
+<meta name="description" content="أرسل طلبك إلى ZYNTRA لمراجعة نطاق العمل والتواصل بشأن العرض المناسب.">
 <style>
-:root{--bg:#0b1220;--card:#121a2b;--text:#e8eefc;--muted:#9aa8c7;--accent:#2dd4bf;--accent2:#38bdf8;--warn:#fbbf24}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-nav{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;padding:1rem;border-bottom:1px solid #1e293b;font-size:.9rem}
-nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
-.wrap{max-width:580px;margin:0 auto;padding:2rem 1.25rem 4rem}
-h1{font-size:1.7rem;text-align:center;margin-bottom:.4rem}
-.sub{color:var(--muted);text-align:center;margin-bottom:1.2rem}
-.pilot{background:#f59e0b18;border:1px solid #f59e0b55;color:var(--warn);padding:.6rem 1rem;border-radius:.6rem;text-align:center;font-size:.92rem;margin-bottom:1.4rem;font-weight:600}
-.seats{text-align:center;font-size:.9rem;color:var(--accent);margin-bottom:1.2rem}
-label{display:block;margin:.9rem 0 .35rem;font-size:.9rem;color:var(--muted)}
-input,select,textarea{width:100%;padding:.8rem;border-radius:.5rem;border:1px solid #1e293b;background:var(--card);color:var(--text);font:inherit}
-button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042f2e;font-weight:700;border:0;padding:1rem;border-radius:.75rem;cursor:pointer;text-decoration:none;font-size:1.05rem}
-.note{font-size:.85rem;color:var(--muted);margin-top:1.1rem;text-align:center}
-.pay{background:var(--card);border:1px solid #1e293b;border-radius:.85rem;padding:1.2rem;margin-top:1.6rem;font-size:.92rem}
-.pay strong{color:var(--accent)}
-.pay code{display:block;word-break:break-all;color:var(--accent);font-size:.82rem;background:#0b1220;padding:.7rem;border-radius:.4rem;margin:.5rem 0;border:1px solid #1e293b}
-.steps-mini{margin:1rem 0;font-size:.9rem;color:var(--muted);line-height:1.8}
-.steps-mini b{color:var(--accent2)}
-.alt{margin-top:1.2rem;padding-top:1rem;border-top:1px solid #1e293b;text-align:center;font-size:.9rem}
-.alt a{color:var(--accent2)}
-.copy-btn{margin-top:.4rem;padding:.4rem .8rem;font-size:.8rem;background:#1e293b;color:var(--accent);border:1px solid #2dd4bf44;border-radius:.4rem;cursor:pointer}
+:root{--primary:#0D3B66;--secondary:#06D6A0;--accent:#7D7D7D;--bg:#071525;--surface:#10243a;--line:#28425c;--text:#eef6ff;--muted:#b7c7d8;--danger:#f87171}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,var(--primary),var(--bg) 55%);color:var(--text);font:16px/1.7 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;min-height:100vh}
+nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;padding:1rem;border-bottom:1px solid #ffffff20}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--secondary)}
+main{max-width:720px;margin:2rem auto;padding:0 1rem 3rem}.panel{background:#10243aee;border:1px solid var(--line);border-radius:1.25rem;padding:clamp(1.2rem,4vw,2rem);box-shadow:0 20px 70px #0005}
+h1{margin:0;text-align:center;font-size:clamp(1.6rem,4vw,2.2rem)}.lead{text-align:center;color:var(--muted);margin:.5rem 0 1.5rem}
+label{display:block;margin:1rem 0 .35rem;color:#d5e4f2;font-size:.94rem}
+input,select,textarea{width:100%;padding:.85rem;border:1px solid var(--line);border-radius:.7rem;background:#071525;color:var(--text);font:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--secondary);outline-offset:1px}
+button{width:100%;margin-top:1.2rem;padding:1rem;border:0;border-radius:.75rem;background:var(--secondary);color:#05251e;font:inherit;font-weight:800;cursor:pointer}
+button:disabled{opacity:.65;cursor:wait}
+.note{font-size:.86rem;color:var(--muted);text-align:center;margin-top:1rem}
+#form-status{display:none;margin-top:1rem;padding:1rem;border-radius:.7rem;white-space:pre-wrap}#form-status.ok{display:block;background:#064e3b66;border:1px solid var(--secondary)}#form-status.error{display:block;background:#7f1d1d55;border:1px solid var(--danger)}
+.hp{position:absolute;inset-inline-start:-10000px;width:1px;height:1px;overflow:hidden}
+footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:1.5rem}footer a{color:var(--secondary)}
 </style>
 </head>
 <body>
-<nav>
-<a href="/">الرئيسية</a>
-<a href="/order.html">اطلب الآن</a>
-<a href="/how.html">كيف نعمل</a>
-<a href="/about.html">من نحن</a>
-<a href="/contact.html">تواصل</a>
-<a href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">حجز</a>
-</nav>
-<div class="wrap">
-<h1>طلب باقة Launch Kit</h1>
-<p class="sub">أرسل احتياجك أولًا، وسنراجع النطاق ونرسل عرضًا وتعليمات دفع مؤكدة عند قبول الطلب.</p>
-
-
-
-<!-- نموذج استفسار فقط؛ لا يجمع أموالًا ولا يطلب بيانات دفع -->
-<form action="mailto:zyntrabusinesszyntraal@gmail.com" method="get" enctype="text/plain">
-<label>الاسم / اسم النشاط</label>
-<input name="name" required placeholder="اسمك أو اسم المشروع" />
-
-<label>البريد أو واتساب</label>
-<input name="contact" required placeholder="email أو رقم واتساب" />
-
-<label>السوق المستهدف</label>
-<select name="market">
-<option>الخليج</option>
-<option>أفريقيا</option>
-<option>آسيا</option>
-<option>تصدير الصين</option>
-<option>أخرى</option>
+<nav><a href="/">الرئيسية</a><a href="/order.html">اطلب الآن</a><a href="/how.html">كيف نعمل</a><a href="/about.html">من نحن</a><a href="/contact.html">تواصل</a></nav>
+<main><section class="panel">
+<h1>ابدأ طلبك مع ZYNTRA</h1>
+<p class="lead">أرسل احتياجك أولًا. سنراجع التفاصيل ونتواصل معك لتأكيد نطاق العمل والسعر والموعد.</p>
+<form id="order-form">
+<div class="hp" aria-hidden="true"><label>اترك هذا الحقل فارغًا<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<label for="name">الاسم أو اسم النشاط</label>
+<input id="name" name="name" required minlength="2" maxlength="120" autocomplete="name" placeholder="اسمك أو اسم شركتك">
+<label for="contact">البريد الإلكتروني أو وسيلة التواصل</label>
+<input id="contact" name="contact" required minlength="3" maxlength="180" autocomplete="email" placeholder="بريد إلكتروني أو رقم تواصل">
+<label for="market">السوق أو المنطقة المستهدفة</label>
+<select id="market" name="market" required>
+<option value="Global">عالمي / متعدد الأسواق</option><option value="Gulf">الخليج</option><option value="Africa">أفريقيا</option><option value="Europe">أوروبا</option><option value="Asia-Pacific">آسيا والمحيط الهادئ</option><option value="Americas">الأمريكتان</option><option value="Other">أخرى</option>
 </select>
-
-<label>الباقة</label>
-<select name="package">
-<option selected>Starter — تجريبي $29</option>
-<option>Starter $39–79</option>
-<option>Growth $129–199</option>
-<option>Pro $249–399</option>
-<option>Export $199–349</option>
-<option>Starter + صيانة شهرية</option>
+<label for="package">الخدمة المطلوبة</label>
+<select id="package" name="package" required>
+<option value="starter">Starter</option><option value="growth">Growth</option><option value="pro">Pro</option><option value="export">Export</option><option value="starter_maintenance">Starter + صيانة</option>
 </select>
-
-<label>نبذة عن المشروع (سطرين أو ثلاثة)</label>
-<textarea name="brief" rows="3" placeholder="ماذا يفعل مشروعك؟ لمن يبيع؟ أي ألوان مفضلة؟"></textarea>
-
-<button type="submit">إرسال الطلب + البيانات بالبريد</button>
+<label for="brief">اشرح احتياجك والنتيجة التي تريدها</label>
+<textarea id="brief" name="brief" rows="5" required minlength="10" maxlength="3000" placeholder="ما نشاطك؟ من جمهورك؟ وما الذي تريد أن ننجزه؟"></textarea>
+<button id="submit-button" type="submit">إرسال الطلب</button>
+<div id="form-status" role="status" aria-live="polite"></div>
 </form>
-
-<div class="pay" role="note">
-<p><strong>تنبيه الدفع</strong></p>
-<p>لا ترسل أي أموال أو عملات رقمية إلى عنوان منشور أو شخصي. بعد مراجعة الطلب والموافقة على العرض، ستصلك فاتورة وتعليمات دفع رسمية مرتبطة بطلبك وبوسيلة دفع متاحة في بلدك.</p>
-<p>إرسال نموذج الاستفسار لا ينشئ فاتورة ولا يؤكد الدفع أو بدء التنفيذ.</p>
-</div>
-
-<div class="alt">
-أو <a href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">احجز مكالمة تأكيد 15 دقيقة</a>
-</div>
-
-<p class="note">هذا النموذج لإرسال استفسار فقط. موعد التنفيذ والتعديلات يحددان في العرض المكتوب بعد الاتفاق.</p>
-</div>
+<p class="note">هذا نموذج طلب أولي فقط. لا يطلب أموالًا أو بيانات بطاقات أو مفاتيح أو عبارات استرداد. لا ترسل أي دفعة قبل استلام عرض وفاتورة وتعليمات دفع رسمية.</p>
+</section>
+<footer>تواصل مباشر: <a href="mailto:zyntrabusinesszyntraal@gmail.com">zyntrabusinesszyntraal@gmail.com</a></footer>
+</main>
+<script>
+const form=document.getElementById("order-form");
+const button=document.getElementById("submit-button");
+const statusBox=document.getElementById("form-status");
+form.addEventListener("submit",async(event)=>{
+ event.preventDefault();
+ statusBox.className="";statusBox.style.display="none";
+ if(!form.reportValidity())return;
+ button.disabled=true;button.textContent="جارٍ إرسال الطلب...";
+ const payload=Object.fromEntries(new FormData(form).entries());
+ try{
+  const response=await fetch("https://ijbmdftluptwnglryaqx.supabase.co/functions/v1/zyntra-order-intake",{
+   method:"POST",
+   headers:{"Content-Type":"application/json","apikey":"sb_publishable_dNArmXDvR5C1C_LZlY1sMg_yYaOQh0R"},
+   body:JSON.stringify(payload)
+  });
+  const result=await response.json().catch(()=>({}));
+  if(!response.ok||!result.ok)throw new Error(result.error||"تعذر إرسال الطلب. حاول لاحقًا.");
+  statusBox.className="ok";statusBox.textContent=result.message+"\nرقم طلبك: "+result.order_number;
+  form.reset();
+ }catch(error){statusBox.className="error";statusBox.textContent=error.message||"حدث خطأ غير متوقع.";}
+ finally{statusBox.style.display="block";button.disabled=false;button.textContent="إرسال الطلب";}
+});
+</script>
 </body>
 </html>
