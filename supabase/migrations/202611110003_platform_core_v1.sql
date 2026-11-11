@@ -193,7 +193,7 @@ create table if not exists public.zyntra_audit_events (
 
 
 create or replace function public.zyntra_validate_ledger_entry_account()
-returns trigger language plpgsql set search_path = pg_catalog, public as $
+returns trigger language plpgsql set search_path = pg_catalog, public as $fn$
 declare v_account_org uuid; v_account_asset uuid; v_transaction_org uuid;
 begin
  select organization_id, asset_id into v_account_org, v_account_asset from public.zyntra_ledger_accounts where id = new.account_id;
@@ -202,21 +202,21 @@ begin
  if v_account_org <> v_transaction_org then raise exception 'Ledger account and transaction organization mismatch'; end if;
  if v_account_asset <> new.asset_id then raise exception 'Ledger entry asset does not match ledger account asset'; end if;
  return new;
-end; $;
+end; $fn$;
 create trigger zyntra_ledger_entry_account_check before insert or update on public.zyntra_ledger_entries for each row execute function public.zyntra_validate_ledger_entry_account();
 
 create or replace function public.zyntra_guard_posted_transaction_mutation()
-returns trigger language plpgsql set search_path = pg_catalog, public as $
+returns trigger language plpgsql set search_path = pg_catalog, public as $fn$
 begin
  if old.status in ('posted','reversed') then raise exception 'Posted ledger transactions are immutable; create a separate reversal transaction'; end if;
  if tg_op = 'DELETE' then return old; end if;
  return new;
-end; $;
+end; $fn$;
 create trigger zyntra_ledger_transaction_immutable before update or delete on public.zyntra_ledger_transactions for each row execute function public.zyntra_guard_posted_transaction_mutation();
 
 create or replace function public.zyntra_guard_audit_append_only()
-returns trigger language plpgsql set search_path = pg_catalog, public as $
-begin raise exception 'Audit events are append-only'; end; $;
+returns trigger language plpgsql set search_path = pg_catalog, public as $fn$
+begin raise exception 'Audit events are append-only'; end; $fn$;
 create trigger zyntra_audit_events_append_only before update or delete on public.zyntra_audit_events for each row execute function public.zyntra_guard_audit_append_only();
 
 create index if not exists zyntra_payment_intents_org_created_idx on public.zyntra_payment_intents (organization_id, created_at desc);
