@@ -57,16 +57,16 @@ begin
   end if;
 
   v_hash := encode(extensions.digest(convert_to(
-    jsonb_build_object('original_transaction_id',p_original_transaction_id,'reason',btrim(p_reason))::text,
+    jsonb_build_object('operation','ledger_reversal','original_transaction_id',p_original_transaction_id,'reason',btrim(p_reason))::text,
     'UTF8'
   ),'sha256'),'hex');
 
-  select id,request_hash into v_existing_id,v_existing_hash
+  select id,request_hash,external_reference into v_existing_id,v_existing_hash,v_existing_reference
   from public.zyntra_ledger_transactions
   where organization_id=p_organization_id and idempotency_key=p_idempotency_key;
 
   if found then
-    if v_existing_hash is distinct from v_hash then
+    if v_existing_hash is distinct from v_hash or v_existing_reference is distinct from 'reversal:'||p_original_transaction_id::text then
       raise exception 'Idempotency key already used with different reversal details';
     end if;
     if (select status from public.zyntra_ledger_transactions where id=v_existing_id) <> 'posted' then
