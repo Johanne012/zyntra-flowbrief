@@ -41,3 +41,11 @@ jobs:
 
       - name: Run order intake contract tests
         run: node --test tests/order-intake-contract.test.mjs
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Type-check Supabase Edge Function
+        run: deno check supabase/functions/zyntra-order-intake/index.ts
