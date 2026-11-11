@@ -191,6 +191,34 @@ create table if not exists public.zyntra_audit_events (
   occurred_at timestamptz not null default now()
 );
 
+
+create or replace function public.zyntra_validate_ledger_entry_account()
+returns trigger language plpgsql set search_path = pg_catalog, public as $
+declare v_account_org uuid; v_account_asset uuid; v_transaction_org uuid;
+begin
+ select organization_id, asset_id into v_account_org, v_account_asset from public.zyntra_ledger_accounts where id = new.account_id;
+ select organization_id into v_transaction_org from public.zyntra_ledger_transactions where id = new.transaction_id;
+ if v_account_org is null or v_transaction_org is null then raise exception 'Ledger account or transaction does not exist'; end if;
+ if v_account_org <> v_transaction_org then raise exception 'Ledger account and transaction organization mismatch'; end if;
+ if v_account_asset <> new.asset_id then raise exception 'Ledger entry asset does not match ledger account asset'; end if;
+ return new;
+end; $;
+create trigger zyntra_ledger_entry_account_check before insert or update on public.zyntra_ledger_entries for each row execute function public.zyntra_validate_ledger_entry_account();
+
+create or replace function public.zyntra_guard_posted_transaction_mutation()
+returns trigger language plpgsql set search_path = pg_catalog, public as $
+begin
+ if old.status in ('posted','reversed') then raise exception 'Posted ledger transactions are immutable; create a separate reversal transaction'; end if;
+ if tg_op = 'DELETE' then return old; end if;
+ return new;
+end; $;
+create trigger zyntra_ledger_transaction_immutable before update or delete on public.zyntra_ledger_transactions for each row execute function public.zyntra_guard_posted_transaction_mutation();
+
+create or replace function public.zyntra_guard_audit_append_only()
+returns trigger language plpgsql set search_path = pg_catalog, public as $
+begin raise exception 'Audit events are append-only'; end; $;
+create trigger zyntra_audit_events_append_only before update or delete on public.zyntra_audit_events for each row execute function public.zyntra_guard_audit_append_only();
+
 create index if not exists zyntra_payment_intents_org_created_idx on public.zyntra_payment_intents (organization_id, created_at desc);
 create index if not exists zyntra_payment_intents_status_idx on public.zyntra_payment_intents (status, expires_at);
 create index if not exists zyntra_payment_attempts_intent_idx on public.zyntra_payment_attempts (payment_intent_id, created_at desc);
@@ -317,6 +345,9 @@ end;
 $$;
 
 revoke all on function public.zyntra_guard_posted_ledger_mutation() from public, anon, authenticated;
+revoke all on function public.zyntra_validate_ledger_entry_account() from public, anon, authenticated;
+revoke all on function public.zyntra_guard_posted_transaction_mutation() from public, anon, authenticated;
+revoke all on function public.zyntra_guard_audit_append_only() from public, anon, authenticated;
 revoke all on function public.zyntra_validate_posted_ledger() from public, anon, authenticated;
 revoke all on function public.zyntra_validate_posted_transaction() from public, anon, authenticated;
 
