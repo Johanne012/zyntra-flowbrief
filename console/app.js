@@ -127,14 +127,59 @@ async function checkPlatformAdmin(){
   if(error.message==="Session expired")return;
  }
 }
+async function transitionAdminOrder(order,nextStatus,label){
+ const needsReason=nextStatus==="cancelled"||nextStatus==="delivered";
+ const reason=needsReason?window.prompt(nextStatus==="cancelled"?"اكتب سبب الإلغاء:":"أدخل مرجع إثبات التسليم:"):"";
+ if(needsReason&&!reason?.trim())return;
+ if(!window.confirm("تأكيد الإجراء: "+label+" للطلب "+order.order_number+"؟"))return;
+ try{
+  const response=await fetch(SUPABASE_URL+"/functions/v1/zyntra-transition-order",{
+   method:"POST",
+   headers:{...apiHeaders(),"Idempotency-Key":crypto.randomUUID()},
+   body:JSON.stringify({order_id:order.id,expected_status:order.order_status,next_status:nextStatus,reason:reason?.trim()||null})
+  });
+  const data=await response.json().catch(()=>({}));
+  if(response.status===401){showAuth();throw new Error("انتهت الجلسة. سجّل الدخول مجددًا.");}
+  if(!response.ok)throw new Error(data.error||"تعذر تنفيذ الإجراء.");
+  setMessage($("app-message"),"تم تحديث الطلب وتسجيل الحدث في سجل التدقيق.","success");
+  await loadAdminOrders();
+ }catch(error){setMessage($("app-message"),error.message||"تعذر تحديث الطلب.","error");}
+}
+function adminOrderActions(order){
+ const actions={
+  received:[["reviewing","بدء المراجعة"],["cancelled","إلغاء"]],
+  reviewing:[["awaiting_payment","إرسال إلى الدفع"],["cancelled","إلغاء"]],
+  awaiting_payment:[["cancelled","إلغاء"]],
+  paid:[["in_progress","بدء التنفيذ"]],
+  in_progress:[["delivered","تسجيل التسليم"]]
+ };
+ return actions[order.order_status]||[];
+}
 async function loadAdminOrders(){
  const container=$("admin-orders-content");container.replaceChildren();
  const loading=document.createElement("p");loading.className="muted";loading.textContent="جارٍ تحميل الطلبات...";container.append(loading);
  try{
   const data=await api("/functions/v1/"+ENDPOINTS.adminOrders,{limit:50,offset:0});
   container.replaceChildren();
-  renderActivityTable(container,"أحدث الطلبات",data.orders,[{key:"created_at",label:"التاريخ"},{key:"order_number",label:"رقم الطلب"},{key:"customer_name",label:"العميل"},{key:"contact",label:"وسيلة التواصل"},{key:"market",label:"السوق"},{key:"package_code",label:"الباقة"},{key:"brief",label:"التفاصيل"},{key:"payment_status",label:"حالة الدفع"},{key:"order_status",label:"حالة الطلب"}]);
-  setMessage($("app-message"),"تم تحميل الطلبات بصلاحية مسؤول المنصة.","success");
+  const section=document.createElement("section");section.className="activity-section";
+  const heading=document.createElement("h3");heading.textContent="أحدث الطلبات";section.append(heading);
+  if(!data.orders.length){const empty=document.createElement("p");empty.className="muted";empty.textContent="لا توجد طلبات.";section.append(empty);container.append(section);setMessage($("app-message"),"تم تحميل صندوق الطلبات.","success");return;}
+  const table=document.createElement("table");table.className="activity-table";
+  const columns=[["order_number","رقم الطلب"],["customer_name","العميل"],["contact","التواصل"],["package_code","الباقة"],["payment_status","الدفع"],["order_status","حالة الطلب"]];
+  const thead=document.createElement("thead"),headRow=document.createElement("tr");
+  for(const [,label] of [...columns,["actions","الإجراء"]]){const th=document.createElement("th");th.textContent=label;headRow.append(th);}
+  thead.append(headRow);table.append(thead);
+  const tbody=document.createElement("tbody");
+  for(const order of data.orders){
+   const tr=document.createElement("tr");
+   for(const [key] of columns){const td=document.createElement("td");td.textContent=order[key]===null||order[key]===undefined?"—":String(order[key]);tr.append(td);}
+   const actionCell=document.createElement("td");
+   for(const [nextStatus,label] of adminOrderActions(order)){const button=document.createElement("button");button.type="button";button.className="button button-outline";button.textContent=label;button.addEventListener("click",()=>transitionAdminOrder(order,nextStatus,label));actionCell.append(button);}
+   if(!actionCell.childElementCount)actionCell.textContent="—";
+   tr.append(actionCell);tbody.append(tr);
+  }
+  table.append(tbody);section.append(table);container.append(section);
+  setMessage($("app-message"),"تم تحميل صندوق الطلبات بصلاحية مسؤول المنصة.","success");
  }catch(error){container.replaceChildren();const message=document.createElement("p");message.className="message error";message.textContent=error.message||"تعذر تحميل الطلبات.";container.append(message);}
 }
 function renderActivityTable(container,title,rows,columns){
