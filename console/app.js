@@ -108,7 +108,8 @@ async function createOrganization(event){
   const data=await api("/functions/v1/"+ENDPOINTS.createOrganization,{
    legal_name:$("legal-name").value.trim(),
    display_name:$("display-name").value.trim(),
-   slug:$("organization-slug").value.trim().toLowerCase()
+   slug:$("organization-slug").value.trim().toLowerCase(),
+   incorporation_country:$("incorporation-country").value.trim().toUpperCase()
   });
   setMessage($("organization-message"),data.message+" رقم المؤسسة: "+data.organization_id,"success");
   await loadOrganizations();
