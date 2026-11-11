@@ -17,7 +17,8 @@ create table if not exists public.zyntra_ai_agents (
   configuration jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  unique (organization_id,agent_key)
+  unique (organization_id,agent_key),
+  check (status <> 'active' or human_approval_required)
 );
 
 create table if not exists public.zyntra_ai_tool_grants (
@@ -32,7 +33,9 @@ create table if not exists public.zyntra_ai_tool_grants (
   constraints jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   unique (agent_id,tool_name),
-  check (tool_name !~* '(payment_charge|payment_refund|ledger_post|wallet_sign|wallet_transfer|withdraw|payout|broker_order|trade_execute|custody)')
+  check (tool_name !~* '(payment_charge|payment_refund|ledger_post|wallet_sign|wallet_transfer|withdraw|payout|broker_order|trade_execute|custody)'),
+  check (permission <> 'write_with_approval' or requires_human_approval),
+  check (status <> 'approved' or (approved_by is not null and approved_at is not null))
 );
 
 create table if not exists public.zyntra_ai_agent_runs (
