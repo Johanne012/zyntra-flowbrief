@@ -55,3 +55,9 @@ jobs:
 
       - name: Type-check disabled regional adapter
         run: deno check supabase/functions/zyntra-chargily-payments/index.ts
+
+      - name: Type-check organization onboarding Edge Function
+        run: deno check supabase/functions/zyntra-create-organization/index.ts
+
+      - name: Type-check organization dashboard Edge Function
+        run: deno check supabase/functions/zyntra-org-dashboard/index.ts
