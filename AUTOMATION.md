@@ -1,46 +1,30 @@
-# أتمتة ZYNTRA — قوالب وتدفقات
+# ZYNTRA Automation Policy
 
-**آخر تحديث:** 2026-08-18  
-**المحرك:** Grok
+Automation is added incrementally and must be observable, bounded and reversible.
 
----
+## Current approach
 
-## ما يعمل الآن
+- GitHub Actions validates repository contracts and type-checks Edge Functions.
+- Supabase Edge Functions handle server-side enquiry intake and payment-intent creation.
+- ChatGPT-connected tools can assist with research, code changes, documentation and operational checks.
+- No single AI agent is treated as an always-on autonomous operator.
 
-- **Grok كمحرك أساسي**: يقرأ الحالة، يحدّث الملفات، ينفّذ عند الطلب، يتعلم.
-- الموقع الحي على Vercel
-- المستودع كمصدر وحيد للحقيقة
+## Planned workflows
 
-## سير العمل المقترحة (n8n أو يدوي + Grok)
+1. Order intake → validation → durable record → staff notification.
+2. Provider webhook → signature verification → deduplication → state transition → ledger posting.
+3. Settlement report → reconciliation suggestions → exception queue.
+4. Support request → retrieval from approved knowledge → draft response → escalation when uncertain.
+5. Marketing plan → content draft → compliance/brand review → scheduled publication.
+6. Daily operations pulse → health, errors, failed jobs, order volume and revenue metrics.
 
-### 1. تقرير صباحي
-- Trigger: يومي
-- خطوات: قراءة البريد → تلخيص → تحديث STATUS إن لزم → إيميل قصير للمالك
+## Required controls
 
-### 2. متابعة العملاء المحتملين
-- Lead جديد → رسالة مخصصة → متابعة بعد 48 ساعة → تحديث الحالة
-
-### 3. نشر محتوى
-- اختيار نص من SOCIAL.md → نشر أو حفظ كمسودة → تسجيل
-
-### 4. تأكيد الدفع
-- إيميل يحتوي TxID → استخراج → إنشاء مهمة → رد تلقائي: "تم الاستلام، نبدأ خلال 24 ساعة"
-
-## أدوات موصى بها
-
-| الأداة | الاستخدام |
-|--------|----------|
-| n8n + awesome-n8n-templates | الأهم |
-| Grok Automations | جدولة نبضات |
-| atom | وكلاء Gmail/Notion |
-| Canva / Gamma / HyperFrames | الإنتاج |
-
-## الخطوة التالية
-
-1. مراجعة حد Automations الحالي
-2. ربط Gmail + Notion إن لم يكن مربوطًا
-3. جدولة نبضة يومية بسيطة (تحديث STATUS أو تقرير)
-
----
-
-*الأتمتة تخدم المحرك، والمحرك (Grok) يبقى المصدر النهائي للقرار والتعلم.*
+- Least-privilege tool and credential allowlists.
+- No secrets in prompts, logs or client bundles.
+- Per-action and per-agent budgets.
+- Structured event logs and evaluation tests.
+- Prompt-injection defenses for web pages, emails and uploaded content.
+- Human approval for payments, payouts, trading, account restrictions and production changes.
+- Kill switch and incident response for every autonomous workflow.
+- Never claim a workflow is active until its trigger, execution and result have been verified.
