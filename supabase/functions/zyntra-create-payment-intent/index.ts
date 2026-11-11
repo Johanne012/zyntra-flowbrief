@@ -67,12 +67,16 @@ Deno.serve(async (req: Request) => {
   const amountAtoms = text(body.amount_atoms, 78);
   const idempotencyKey = text(body.idempotency_key, 128);
   const orderReference = text(body.order_reference, 120) || null;
+  const requestedMethod = text(body.payment_method, 64).toLowerCase() || null;
+  const customerCountryCode = text(body.customer_country_code, 2).toUpperCase() || null;
 
   if (!/^[0-9a-f-]{36}$/i.test(organizationId) ||
       !["fiat", "crypto", "stablecoin"].includes(assetType) ||
       !/^[A-Z0-9._-]{2,24}$/.test(assetCode) ||
       !/^[1-9][0-9]{0,77}$/.test(amountAtoms) ||
-      idempotencyKey.length < 12 || !/^[A-Za-z0-9._:-]{12,128}$/.test(idempotencyKey)) {
+      idempotencyKey.length < 12 || !/^[A-Za-z0-9._:-]{12,128}$/.test(idempotencyKey) ||
+      (requestedMethod !== null && !/^[a-z0-9_-]{2,64}$/.test(requestedMethod)) ||
+      (customerCountryCode !== null && !/^[A-Z]{2}$/.test(customerCountryCode))) {
     return reply({ error: "Invalid payment intent fields" }, 400);
   }
 
@@ -97,12 +101,14 @@ Deno.serve(async (req: Request) => {
     }
 
     const orgResponse = await fetch(
-      rest("zyntra_organizations?select=id,status&id=eq." + encodeURIComponent(organizationId)),
+      rest("zyntra_organizations?select=id,status,incorporation_country&id=eq." + encodeURIComponent(organizationId)),
       { headers: adminHeaders },
     );
     if (!orgResponse.ok) return reply({ error: "Organization check unavailable" }, 503);
     const organizations = await orgResponse.json();
-    if (organizations?.[0]?.status !== "active") return reply({ error: "Organization is not active" }, 409);
+    const organization = organizations?.[0];
+    if (organization?.status !== "active") return reply({ error: "Organization is not active" }, 409);
+    if (!organization.incorporation_country) return reply({ error: "Organization legal country is not verified" }, 409);
 
     const assetFilter = "asset_type=eq." + encodeURIComponent(assetType) +
       "&code=eq." + encodeURIComponent(assetCode) +
@@ -113,10 +119,10 @@ Deno.serve(async (req: Request) => {
     if (!assetResponse.ok) return reply({ error: "Asset lookup unavailable" }, 503);
     const assets = await assetResponse.json();
     const asset = assets?.[0];
-    if (!asset?.id || asset.is_active !== true) return reply({ error: "Asset or payment route is not enabled" }, 409);
+    if (!asset?.id) return reply({ error: "Asset is not configured" }, 409);
 
     const existingResponse = await fetch(
-      rest("zyntra_payment_intents?select=id,amount_atoms,asset_id,status,order_reference&organization_id=eq." +
+      rest("zyntra_payment_intents?select=id,amount_atoms,asset_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
         encodeURIComponent(organizationId) + "&idempotency_key=eq." + encodeURIComponent(idempotencyKey)),
       { headers: adminHeaders },
     );
@@ -124,11 +130,44 @@ Deno.serve(async (req: Request) => {
     const existing = (await existingResponse.json())?.[0];
     if (existing) {
       if (String(existing.amount_atoms) !== amountAtoms || existing.asset_id !== asset.id ||
-          (existing.order_reference ?? null) !== orderReference) {
+          (existing.order_reference ?? null) !== orderReference ||
+          (existing.requested_method ?? null) !== requestedMethod ||
+          (existing.customer_country_code ?? null) !== customerCountryCode) {
         return reply({ error: "Idempotency key already used with different parameters" }, 409);
       }
       return reply({ ok: true, payment_intent: existing, reused: true }, 200);
     }
+
+    if (asset.is_active !== true) return reply({ error: "Asset is not enabled" }, 409);
+
+    const routeResponse = await fetch(
+      rest("zyntra_provider_routes?select=id,provider_id,min_amount_atoms,max_amount_atoms,payment_method,customer_country_code&organization_id=eq." +
+        encodeURIComponent(organizationId) + "&asset_id=eq." + encodeURIComponent(asset.id) +
+        "&merchant_country_code=eq." + encodeURIComponent(organization.incorporation_country) +
+        "&enabled=eq.true&approval_status=eq.approved"),
+      { headers: adminHeaders },
+    );
+    if (!routeResponse.ok) return reply({ error: "Provider route lookup unavailable" }, 503);
+    let routes = (await routeResponse.json()).filter((route: any) =>
+      (!requestedMethod || route.payment_method === requestedMethod) &&
+      (customerCountryCode ? (!route.customer_country_code || route.customer_country_code === customerCountryCode) : !route.customer_country_code)
+    );
+    const providerIds = [...new Set(routes.map((route: any) => route.provider_id))];
+    if (providerIds.length === 0) return reply({ error: "No approved payment route for this organization, asset and country" }, 409);
+
+    const providerResponse = await fetch(
+      rest("zyntra_payment_providers?select=id&enabled=eq.true&id=in.(" + providerIds.join(",") + ")"),
+      { headers: adminHeaders },
+    );
+    if (!providerResponse.ok) return reply({ error: "Provider status lookup unavailable" }, 503);
+    const enabledProviderIds = new Set((await providerResponse.json()).map((provider: any) => provider.id));
+    routes = routes.filter((route: any) => enabledProviderIds.has(route.provider_id));
+    const amount = BigInt(amountAtoms);
+    const eligibleRoute = routes.find((route: any) =>
+      amount >= BigInt(String(route.min_amount_atoms)) &&
+      (route.max_amount_atoms === null || amount <= BigInt(String(route.max_amount_atoms)))
+    );
+    if (!eligibleRoute) return reply({ error: "No enabled provider route supports this amount" }, 409);
 
     const insertResponse = await fetch(rest("zyntra_payment_intents"), {
       method: "POST",
@@ -140,19 +179,23 @@ Deno.serve(async (req: Request) => {
         amount_atoms: amountAtoms,
         asset_id: asset.id,
         idempotency_key: idempotencyKey,
+        requested_method: requestedMethod,
+        customer_country_code: customerCountryCode,
         status: "created",
       }),
     });
     if (insertResponse.status === 409) {
       const retry = await fetch(
-        rest("zyntra_payment_intents?select=id,amount_atoms,asset_id,status,order_reference&organization_id=eq." +
+        rest("zyntra_payment_intents?select=id,amount_atoms,asset_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
           encodeURIComponent(organizationId) + "&idempotency_key=eq." + encodeURIComponent(idempotencyKey)),
         { headers: adminHeaders },
       );
       if (retry.ok) {
         const duplicate = (await retry.json())?.[0];
         if (duplicate && String(duplicate.amount_atoms) === amountAtoms && duplicate.asset_id === asset.id &&
-            (duplicate.order_reference ?? null) === orderReference) {
+            (duplicate.order_reference ?? null) === orderReference &&
+            (duplicate.requested_method ?? null) === requestedMethod &&
+            (duplicate.customer_country_code ?? null) === customerCountryCode) {
           return reply({ ok: true, payment_intent: duplicate, reused: true }, 200);
         }
       }
