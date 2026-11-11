@@ -19,9 +19,6 @@ const envKey = (jsonName: string, legacyName: string) => {
 
 Deno.serve(async (req: Request) => {
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
-  const length = Number(req.headers.get("content-length") ?? "0");
-  if (length > 8 * 1024) return json({ error: "Request too large" }, 413);
-
   const authHeader = req.headers.get("authorization") ?? "";
   const match = authHeader.match(/^Bearer\s+(.+)$/i);
   if (!match) return json({ error: "Authentication required" }, 401);
@@ -40,7 +37,12 @@ Deno.serve(async (req: Request) => {
   if (!user?.id) return json({ error: "Invalid session" }, 401);
 
   let body: Record<string, unknown>;
-  try { body = await req.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
+  try {
+    const raw = await req.text();
+    if (new TextEncoder().encode(raw).byteLength > 8 * 1024) return json({ error: "Request too large" }, 413);
+    body = JSON.parse(raw);
+    if (!body || typeof body !== "object" || Array.isArray(body)) return json({ error: "Invalid JSON object" }, 400);
+  } catch { return json({ error: "Invalid JSON" }, 400); }
 
   const organizationId = text(body.organization_id, 64);
   const assetType = text(body.asset_type, 20);
@@ -117,7 +119,7 @@ Deno.serve(async (req: Request) => {
       headers: { ...adminHeaders, Prefer: "return=representation" },
       body: JSON.stringify({
         organization_id: organizationId,
-        customer_user_id: user.id,
+        created_by: user.id,
         order_reference: orderReference,
         amount_atoms: amountAtoms,
         asset_id: asset.id,
@@ -126,7 +128,19 @@ Deno.serve(async (req: Request) => {
       }),
     });
     if (insertResponse.status === 409) {
-      return json({ error: "Duplicate request; retry with the same idempotency key" }, 409);
+      const retry = await fetch(
+        rest("zyntra_payment_intents?select=id,amount_atoms,asset_id,status,order_reference&organization_id=eq." +
+          encodeURIComponent(organizationId) + "&idempotency_key=eq." + encodeURIComponent(idempotencyKey)),
+        { headers: adminHeaders },
+      );
+      if (retry.ok) {
+        const duplicate = (await retry.json())?.[0];
+        if (duplicate && String(duplicate.amount_atoms) === amountAtoms && duplicate.asset_id === asset.id &&
+            (duplicate.order_reference ?? null) === orderReference) {
+          return json({ ok: true, payment_intent: duplicate, reused: true }, 200);
+        }
+      }
+      return json({ error: "Idempotency key already used with different parameters" }, 409);
     }
     if (!insertResponse.ok) {
       console.error("Payment intent insert failed", insertResponse.status, (await insertResponse.text()).slice(0, 300));
