@@ -8,7 +8,7 @@
 |---|---|---|
 | Source control | GitHub | Versioned website, migrations, Edge Function source |
 | Database | Supabase Postgres 17 | Server-only platform schema and order records |
-| Serverless backend | Supabase Edge Functions | Order intake and payment-intent API |
+| Serverless backend | Supabase Edge Functions | Order intake, organization onboarding/review, payment intents, ledger posting/reversals and tenant dashboard |
 | Hosting | Vercel | Static website and preview deployments |
 | Console | Static HTML/CSS/JS | Authenticated onboarding and aggregate dashboard; deployment pending quota |
 | Automation | ChatGPT Automations / connected tools | Human-supervised project tasks and scheduled reports where configured |
