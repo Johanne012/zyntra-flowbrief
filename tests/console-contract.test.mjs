@@ -39,3 +39,8 @@ test("console contains no direct wallet address or payment form", () => {
   assert.doesNotMatch(html + js, /bc1q[a-z0-9]{20,}/i);
   assert.doesNotMatch(html + js, /private key|seed phrase|mnemonic/i);
 });
+
+test("signup confirmation returns to the console", () => {
+  assert.match(js, /auth\/v1\/signup\?redirect_to=/);
+  assert.match(js, /window\.location\.origin\+"\/console\/"/);
+});

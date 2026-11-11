@@ -17,6 +17,7 @@ const apiHeaders=(token=accessToken)=>({apikey:SUPABASE_KEY,Authorization:"Beare
 async function api(path,body,token=accessToken){
  const response=await fetch(SUPABASE_URL+path,{method:"POST",headers:apiHeaders(token),body:JSON.stringify(body??{})});
  const data=await response.json().catch(()=>({}));
+ if(response.status===401){showAuth();setMessage($("auth-message"),"انتهت الجلسة. سجّل الدخول مجددًا.","error");throw new Error("Session expired");}
  if(!response.ok)throw new Error(data.error||"Request failed ("+response.status+")");
  return data;
 }
@@ -44,7 +45,8 @@ async function authSubmit(event){
  const button=$("auth-submit");button.disabled=true;
  try{
   if(authMode==="signup"){
-   const response=await fetch(SUPABASE_URL+"/auth/v1/signup",{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password})});
+   const redirect=encodeURIComponent(window.location.origin+"/console/");
+   const response=await fetch(SUPABASE_URL+"/auth/v1/signup?redirect_to="+redirect,{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password})});
    const data=await response.json().catch(()=>({}));
    if(!response.ok)throw new Error(data.msg||data.message||data.error_description||"تعذر إنشاء الحساب.");
    if(data.access_token){accessToken=data.access_token;showApp();await loadOrganizations();}
