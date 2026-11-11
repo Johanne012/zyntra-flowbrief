@@ -17,6 +17,10 @@
 | Asset catalogue | 23 records, 0 active |
 | Provider catalogue | 6 records, 0 enabled |
 | Organizations | 0 |
+| Console source | Merged; deployment pending Vercel build quota |
+| Organization onboarding API | ACTIVE v1, JWT + CORS allowlist |
+| Organization dashboard API | ACTIVE v2, JWT + membership check |
+| Organization listing API | ACTIVE v1, JWT + CORS allowlist |
 | Vercel preview | v2 preview build succeeded |
 | Primary Vercel project | Deployment blocked by project verification/branch rules |
 
