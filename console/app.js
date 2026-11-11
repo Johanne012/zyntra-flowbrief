@@ -4,7 +4,8 @@ const ENDPOINTS={
   organizations:"zyntra-my-organizations",
   createOrganization:"zyntra-create-organization",
   dashboard:"zyntra-org-dashboard",
-  activity:"zyntra-org-activity"
+  activity:"zyntra-org-activity",
+  adminOrders:"zyntra-admin-orders"
 };
 let accessToken=null;
 let authMode="login";
@@ -50,13 +51,13 @@ async function authSubmit(event){
    const response=await fetch(SUPABASE_URL+"/auth/v1/signup?redirect_to="+redirect,{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password})});
    const data=await response.json().catch(()=>({}));
    if(!response.ok)throw new Error(data.msg||data.message||data.error_description||"تعذر إنشاء الحساب.");
-   if(data.access_token){accessToken=data.access_token;showApp();await loadOrganizations();}
+   if(data.access_token){accessToken=data.access_token;showApp();await checkPlatformAdmin();await loadOrganizations();}
    else setMessage($("auth-message"),"تم إرسال طلب التسجيل. تحقق من بريدك الإلكتروني لتأكيد الحساب، ثم سجّل الدخول.","success");
   }else{
    const response=await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password})});
    const data=await response.json().catch(()=>({}));
    if(!response.ok||!data.access_token)throw new Error(data.msg||data.message||data.error_description||"بيانات الدخول غير صحيحة.");
-   accessToken=data.access_token;showApp();await loadOrganizations();
+   accessToken=data.access_token;showApp();await checkPlatformAdmin();await loadOrganizations();
   }
  }catch(error){setMessage($("auth-message"),error.message||"حدث خطأ.","error");}
  finally{button.disabled=false;}
@@ -117,6 +118,25 @@ async function createOrganization(event){
  }catch(error){setMessage($("organization-message"),error.message,"error");}
  finally{button.disabled=false;}
 }
+async function checkPlatformAdmin(){
+ try{
+  await api("/functions/v1/"+ENDPOINTS.adminOrders,{limit:1,offset:0});
+  $("admin-orders-nav").hidden=false;
+ }catch(error){
+  $("admin-orders-nav").hidden=true;
+  if(error.message==="Session expired")return;
+ }
+}
+async function loadAdminOrders(){
+ const container=$("admin-orders-content");container.replaceChildren();
+ const loading=document.createElement("p");loading.className="muted";loading.textContent="جارٍ تحميل الطلبات...";container.append(loading);
+ try{
+  const data=await api("/functions/v1/"+ENDPOINTS.adminOrders,{limit:50,offset:0});
+  container.replaceChildren();
+  renderActivityTable(container,"أحدث الطلبات",data.orders,[{key:"created_at",label:"التاريخ"},{key:"order_number",label:"رقم الطلب"},{key:"customer_name",label:"العميل"},{key:"contact",label:"وسيلة التواصل"},{key:"market",label:"السوق"},{key:"package_code",label:"الباقة"},{key:"brief",label:"التفاصيل"},{key:"payment_status",label:"حالة الدفع"},{key:"order_status",label:"حالة الطلب"}]);
+  setMessage($("app-message"),"تم تحميل الطلبات بصلاحية مسؤول المنصة.","success");
+ }catch(error){container.replaceChildren();const message=document.createElement("p");message.className="message error";message.textContent=error.message||"تعذر تحميل الطلبات.";container.append(message);}
+}
 function renderActivityTable(container,title,rows,columns){
  const section=document.createElement("section");section.className="activity-section";
  const heading=document.createElement("h3");heading.textContent=title;section.append(heading);
@@ -151,9 +171,11 @@ async function showFeature(view){
   assets:["الأصول والمزودون","كتالوج العملات والأصول والمزودين موجود، لكن جميع الأصول والمزودين غير مفعّلين."],
   security:["الأمن والحوكمة","RLS، صلاحيات الخادم، سجل التدقيق وحواجز دفتر الحسابات قيد التطوير والاختبار المستمر."]
  };
+ $("admin-orders-panel").hidden=view!=="admin-orders";
  $("activity-panel").hidden=view!=="activity";
- $("feature-panel").hidden=view==="activity"||view==="overview";
+ $("feature-panel").hidden=view==="activity"||view==="admin-orders"||view==="overview";
  $("overview-panel").hidden=view!=="overview";
+ if(view==="admin-orders"){await loadAdminOrders();return;}
  if(view==="activity"){await loadActivity();return;}
  const item=names[view];if(!item)return;
  $("feature-title").textContent=item[0];$("feature-description").textContent=item[1];
