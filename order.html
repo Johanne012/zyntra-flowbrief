@@ -4,102 +4,103 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>اطلب الآن — ZYNTRA Launch Kit</title>
-<meta name="description" content="اطلب باقة الإطلاق خلال 72 ساعة. تجريبي $29 لأول 5 عملاء." />
+<meta name="description" content="قدّم طلبك إلى ZYNTRA Launch Kit وتابع رقم الطلب بعد الإرسال." />
 <style>
-:root{--bg:#0b1220;--card:#121a2b;--text:#e8eefc;--muted:#9aa8c7;--accent:#2dd4bf;--accent2:#38bdf8;--warn:#fbbf24}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-nav{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;padding:1rem;border-bottom:1px solid #1e293b;font-size:.9rem}
+:root{--bg:#0b1220;--card:#121a2b;--text:#e8eefc;--muted:#9aa8c7;--accent:#2dd4bf;--accent2:#38bdf8;--warn:#fbbf24;--line:#26334b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+nav{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;padding:1rem;border-bottom:1px solid var(--line);font-size:.9rem}
 nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
-.wrap{max-width:580px;margin:0 auto;padding:2rem 1.25rem 4rem}
-h1{font-size:1.7rem;text-align:center;margin-bottom:.4rem}
-.sub{color:var(--muted);text-align:center;margin-bottom:1.2rem}
-.pilot{background:#f59e0b18;border:1px solid #f59e0b55;color:var(--warn);padding:.6rem 1rem;border-radius:.6rem;text-align:center;font-size:.92rem;margin-bottom:1.4rem;font-weight:600}
-.seats{text-align:center;font-size:.9rem;color:var(--accent);margin-bottom:1.2rem}
+.wrap{max-width:620px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:1.7rem;text-align:center;margin-bottom:.4rem}.sub{color:var(--muted);text-align:center;margin-bottom:1.2rem}
+.pilot{background:#f59e0b18;border:1px solid #f59e0b55;color:var(--warn);padding:.8rem 1rem;border-radius:.6rem;text-align:center;font-size:.92rem;margin-bottom:1.4rem;font-weight:600}
 label{display:block;margin:.9rem 0 .35rem;font-size:.9rem;color:var(--muted)}
-input,select,textarea{width:100%;padding:.8rem;border-radius:.5rem;border:1px solid #1e293b;background:var(--card);color:var(--text);font:inherit}
-button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042f2e;font-weight:700;border:0;padding:1rem;border-radius:.75rem;cursor:pointer;text-decoration:none;font-size:1.05rem}
-.note{font-size:.85rem;color:var(--muted);margin-top:1.1rem;text-align:center}
-.pay{background:var(--card);border:1px solid #1e293b;border-radius:.85rem;padding:1.2rem;margin-top:1.6rem;font-size:.92rem}
-.pay strong{color:var(--accent)}
-.pay code{display:block;word-break:break-all;color:var(--accent);font-size:.82rem;background:#0b1220;padding:.7rem;border-radius:.4rem;margin:.5rem 0;border:1px solid #1e293b}
-.steps-mini{margin:1rem 0;font-size:.9rem;color:var(--muted);line-height:1.8}
-.steps-mini b{color:var(--accent2)}
-.alt{margin-top:1.2rem;padding-top:1rem;border-top:1px solid #1e293b;text-align:center;font-size:.9rem}
-.alt a{color:var(--accent2)}
+input,select,textarea{width:100%;padding:.8rem;border-radius:.5rem;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit}
+button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042f2e;font-weight:700;border:0;padding:1rem;border-radius:.75rem;cursor:pointer;text-decoration:none;font-size:1.02rem}
+button:disabled{opacity:.6;cursor:wait}.note{font-size:.85rem;color:var(--muted);margin-top:1.1rem;text-align:center}
+.pay{background:var(--card);border:1px solid var(--line);border-radius:.85rem;padding:1.2rem;margin-top:1.6rem;font-size:.92rem}
+.pay strong{color:var(--accent)}.pay code{display:block;word-break:break-all;color:var(--accent);font-size:.82rem;background:var(--bg);padding:.7rem;border-radius:.4rem;margin:.5rem 0;border:1px solid var(--line)}
+.steps-mini{margin:1rem 0;font-size:.9rem;color:var(--muted);line-height:1.8}.steps-mini b{color:var(--accent2)}
+.alt{margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--line);text-align:center;font-size:.9rem}.alt a{color:var(--accent2)}
 .copy-btn{margin-top:.4rem;padding:.4rem .8rem;font-size:.8rem;background:#1e293b;color:var(--accent);border:1px solid #2dd4bf44;border-radius:.4rem;cursor:pointer}
+#form-status{display:none;padding:1rem;border-radius:.65rem;margin-top:1rem;white-space:pre-wrap}#form-status.ok{display:block;background:#064e3b55;border:1px solid #10b981;color:#d1fae5}#form-status.error{display:block;background:#7f1d1d44;border:1px solid #ef4444;color:#fee2e2}
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 </style>
 </head>
 <body>
 <nav>
-<a href="/">الرئيسية</a>
-<a href="/order.html">اطلب الآن</a>
-<a href="/how.html">كيف نعمل</a>
-<a href="/about.html">من نحن</a>
-<a href="/contact.html">تواصل</a>
+<a href="/">الرئيسية</a><a href="/order.html">اطلب الآن</a><a href="/how.html">كيف نعمل</a><a href="/about.html">من نحن</a><a href="/contact.html">تواصل</a>
 <a href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">حجز</a>
 </nav>
 <div class="wrap">
 <h1>طلب باقة Launch Kit</h1>
-<p class="sub">ادفع ← أرسل التأكيد ← استلم خلال 48–72 ساعة</p>
+<p class="sub">أرسل تفاصيل مشروعك أولًا؛ سنراجع الطلب ونتواصل معك لتأكيد النطاق والسعر والموعد.</p>
+<div class="pilot">عرض Starter التجريبي بسعر $29 لأول خمسة عملاء مؤهلين، ويُؤكد التوفر بعد مراجعة الطلب.</div>
 
-<div class="pilot">عرض تجريبي: Starter بـ $29 لأول 5 عملاء فقط</div>
-<div class="seats">المقاعد المتبقية: <strong>5 من 5</strong></div>
-
-<!-- نموذج مبسّط يفتح البريد مع بيانات جاهزة + تعليمات واضحة -->
-<form action="mailto:zyntrabusinesszyntraal@gmail.com" method="get" enctype="text/plain">
-<label>الاسم / اسم النشاط</label>
-<input name="name" required placeholder="اسمك أو اسم المشروع" />
-
-<label>البريد أو واتساب</label>
-<input name="contact" required placeholder="email أو رقم واتساب" />
-
-<label>السوق المستهدف</label>
-<select name="market">
-<option>الخليج</option>
-<option>أفريقيا</option>
-<option>آسيا</option>
-<option>تصدير الصين</option>
-<option>أخرى</option>
+<form id="order-form">
+<div class="hp" aria-hidden="true"><label>اترك هذا الحقل فارغًا<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+<label for="name">الاسم / اسم النشاط</label>
+<input id="name" name="name" required minlength="2" maxlength="120" placeholder="اسمك أو اسم المشروع" />
+<label for="contact">البريد أو واتساب</label>
+<input id="contact" name="contact" required minlength="3" maxlength="180" placeholder="بريد إلكتروني أو رقم واتساب" />
+<label for="market">السوق المستهدف</label>
+<select id="market" name="market" required>
+<option value="الخليج">الخليج</option><option value="أفريقيا">أفريقيا</option><option value="آسيا">آسيا</option><option value="تصدير الصين">تصدير الصين</option><option value="أخرى">أخرى</option>
 </select>
-
-<label>الباقة</label>
-<select name="package">
-<option selected>Starter — تجريبي $29</option>
-<option>Starter $39–79</option>
-<option>Growth $129–199</option>
-<option>Pro $249–399</option>
-<option>Export $199–349</option>
-<option>Starter + صيانة شهرية</option>
+<label for="package">الباقة المطلوبة</label>
+<select id="package" name="package" required>
+<option value="starter_pilot">Starter — تجريبي (السعر والتوفر بعد التأكيد)</option>
+<option value="starter">Starter</option><option value="growth">Growth</option><option value="pro">Pro</option><option value="export">Export</option><option value="starter_maintenance">Starter + صيانة شهرية</option>
 </select>
-
-<label>نبذة عن المشروع (سطرين أو ثلاثة)</label>
-<textarea name="brief" rows="3" placeholder="ماذا يفعل مشروعك؟ لمن يبيع؟ أي ألوان مفضلة؟"></textarea>
-
-<label>TxID (إذا دفعت مسبقًا — اختياري الآن)</label>
-<input name="txid" placeholder="الصق TxID هنا إن وُجد" />
-
-<button type="submit">إرسال الطلب + البيانات بالبريد</button>
+<label for="brief">نبذة عن المشروع (10 أحرف على الأقل)</label>
+<textarea id="brief" name="brief" rows="4" required minlength="10" maxlength="3000" placeholder="ماذا يقدم مشروعك؟ لمن يبيع؟ وما النتيجة التي تريدها؟"></textarea>
+<label for="txid">TxID (اختياري — لن يُعد إثباتًا مؤكدًا للدفع)</label>
+<input id="txid" name="txid" maxlength="160" placeholder="أدخل TxID إذا كنت قد دفعت بالفعل" />
+<button id="submit-button" type="submit">إرسال الطلب بأمان</button>
+<div id="form-status" role="status" aria-live="polite"></div>
 </form>
 
 <div class="pay">
-<p><strong>طريقة الدفع (Bitcoin فقط حاليًا)</strong></p>
-<div class="steps-mini">
-<b>1.</b> حول المبلغ إلى العنوان أدناه<br>
-<b>2.</b> انسخ TxID كاملًا<br>
-<b>3.</b> أرسل TxID + اسم الباقة + النبذة إلى البريد (أو عبر النموذج أعلاه)
-</div>
-<p>عنوان BTC:</p>
+<p><strong>الدفع — لا تحوّل قبل تأكيد السعر والنطاق معنا</strong></p>
+<div class="steps-mini"><b>1.</b> أرسل الطلب أولًا.<br><b>2.</b> نراجع التفاصيل ونؤكد السعر وطريقة الدفع.<br><b>3.</b> بعد الدفع نتحقق من المعاملة يدويًا قبل بدء التنفيذ.</div>
+<p>عنوان BTC المعلن للمشروع (تحقق منه معنا قبل أي تحويل):</p>
 <code id="btc">bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u</code>
-<button class="copy-btn" onclick="navigator.clipboard.writeText('bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u');this.textContent='تم النسخ ✓'">نسخ العنوان</button>
-<p style="margin-top:1rem">بعد التحويل أرسل إلى:<br>
-<a href="mailto:zyntrabusinesszyntraal@gmail.com" style="color:var(--accent2)">zyntrabusinesszyntraal@gmail.com</a></p>
+<button class="copy-btn" type="button" onclick="navigator.clipboard.writeText(document.getElementById('btc').textContent).then(()=>this.textContent='تم النسخ ✓')">نسخ العنوان</button>
+<p style="margin-top:1rem">للتواصل: <a href="mailto:zyntrabusinesszyntraal@gmail.com" style="color:var(--accent2)">zyntrabusinesszyntraal@gmail.com</a></p>
 </div>
-
-<div class="alt">
-أو <a href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">احجز مكالمة تأكيد 15 دقيقة</a>
+<div class="alt">أو <a href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">احجز مكالمة تعريفية</a></div>
+<p class="note">إرسال الطلب لا ينشئ التزامًا بالدفع ولا يعني قبول الطلب. يبدأ العمل فقط بعد الاتفاق وتأكيد الدفع. إرسال TxID لا يعني التحقق من الدفع.</p>
 </div>
-
-<p class="note">العمل يبدأ بعد تأكيد التحويل على الشبكة.<br>جولة تعديل واحدة مجانية خلال 7 أيام من التسليم.</p>
-</div>
+<script>
+const form = document.getElementById("order-form");
+const button = document.getElementById("submit-button");
+const statusBox = document.getElementById("form-status");
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  statusBox.className = "";
+  statusBox.style.display = "none";
+  button.disabled = true;
+  button.textContent = "جارٍ إرسال الطلب...";
+  const payload = Object.fromEntries(new FormData(form).entries());
+  try {
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok) throw new Error(result.error || "تعذر إرسال الطلب.");
+    statusBox.className = "ok";
+    statusBox.textContent = result.message + "\nرقم طلبك: " + result.order_number;
+    form.reset();
+  } catch (error) {
+    statusBox.className = "error";
+    statusBox.textContent = error.message || "حدث خطأ. يرجى المحاولة لاحقًا.";
+  } finally {
+    statusBox.style.display = "block";
+    button.disabled = false;
+    button.textContent = "إرسال الطلب بأمان";
+  }
+});
+</script>
 </body>
 </html>
