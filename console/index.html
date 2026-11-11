@@ -53,6 +53,7 @@
       <button id="new-organization-toggle" class="button button-outline" type="button">+ إضافة مؤسسة</button>
       <div class="side-divider"></div>
       <button class="nav-item active" type="button" data-view="overview">نظرة عامة</button>
+      <button class="nav-item" type="button" data-view="admin-orders" id="admin-orders-nav" hidden>صندوق الطلبات</button>
       <button class="nav-item" type="button" data-view="activity">النشاط والسجلات</button>
       <button class="nav-item" type="button" data-view="payments">المدفوعات</button>
       <button class="nav-item" type="button" data-view="ledger">دفتر الحسابات</button>
@@ -100,6 +101,11 @@
         </div>
       </div>
 
+      <div id="admin-orders-panel" class="panel feature-panel" hidden>
+        <p class="eyebrow">PLATFORM ADMIN ONLY</p><h2>صندوق الطلبات</h2>
+        <p class="muted">سجلات الاستفسارات الواردة. الوصول مقصور على مسؤول المنصة، والعرض للقراءة فقط.</p>
+        <div id="admin-orders-content" class="activity-content"></div>
+      </div>
       <div id="activity-panel" class="panel feature-panel" hidden>
         <p class="eyebrow">READ-ONLY OPERATIONS</p><h2>النشاط والسجلات</h2>
         <p class="muted">عرض محدود لآخر 25 سجلًا في كل قسم. هذه البيانات داخلية ولا تثبت تحصيل أموال أو تسوية فعلية.</p>

@@ -57,3 +57,10 @@ test("console exposes tenant-scoped read-only activity endpoint", () => {
   assert.match(html, /data-view="activity"/);
   assert.match(html, /activity-panel/);
 });
+
+test("platform admin order inbox is hidden until the admin claim is verified", () => {
+  assert.match(html, /id="admin-orders-nav" hidden/);
+  assert.match(js, /checkPlatformAdmin/);
+  assert.match(js, /zyntra-admin-orders/);
+  assert.match(js, /loadAdminOrders/);
+});
