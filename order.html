@@ -56,6 +56,7 @@ button:disabled{opacity:.6;cursor:wait}.note{font-size:.85rem;color:var(--muted)
 <label for="txid">TxID (اختياري — لن يُعد إثباتًا مؤكدًا للدفع)</label>
 <input id="txid" name="txid" maxlength="160" placeholder="أدخل TxID إذا كنت قد دفعت بالفعل" />
 <button id="submit-button" type="submit">إرسال الطلب بأمان</button>
+<button id="pay-button" type="button" hidden>الدفع عبر CIB / البطاقة الذهبية</button>
 <div id="form-status" role="status" aria-live="polite"></div>
 </form>
 
@@ -74,6 +75,8 @@ button:disabled{opacity:.6;cursor:wait}.note{font-size:.85rem;color:var(--muted)
 const form = document.getElementById("order-form");
 const button = document.getElementById("submit-button");
 const statusBox = document.getElementById("form-status");
+const payButton = document.getElementById("pay-button");
+let latestOrderNumber = "";
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   statusBox.className = "";
@@ -99,6 +102,27 @@ form.addEventListener("submit", async (event) => {
     statusBox.style.display = "block";
     button.disabled = false;
     button.textContent = "إرسال الطلب بأمان";
+  }
+});
+payButton.addEventListener("click", async () => {
+  if (!latestOrderNumber) return;
+  payButton.disabled = true;
+  payButton.textContent = "جارٍ تجهيز الدفع...";
+  try {
+    const response = await fetch("https://ijbmdftluptwnglryaqx.supabase.co/functions/v1/zyntra-chargily-payments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": "sb_publishable_dNArmXDvR5C1C_LZlY1sMg_yYaOQh0R" },
+      body: JSON.stringify({ order_number: latestOrderNumber })
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok || !result.checkout_url) throw new Error(result.error || "تعذر تجهيز رابط الدفع.");
+    window.location.assign(result.checkout_url);
+  } catch (error) {
+    statusBox.className = "error";
+    statusBox.style.display = "block";
+    statusBox.textContent = error.message || "تعذر تجهيز الدفع.";
+    payButton.disabled = false;
+    payButton.textContent = "الدفع عبر CIB / البطاقة الذهبية";
   }
 });
 </script>
