@@ -70,3 +70,6 @@ jobs:
 
       - name: Type-check platform organization review Edge Function
         run: deno check supabase/functions/zyntra-review-organization/index.ts
+
+      - name: Type-check ledger posting Edge Function
+        run: deno check supabase/functions/zyntra-post-ledger/index.ts
