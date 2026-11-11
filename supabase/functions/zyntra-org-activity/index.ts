@@ -41,15 +41,16 @@ Deno.serve(async(req:Request)=>{
     const memberships=await membership.json();
     if(!memberships?.length)return reply({error:"Organization access denied"},403);
     const query=(table:string,select:string)=>fetch(base+table+"?select="+encodeURIComponent(select)+"&organization_id=eq."+encodeURIComponent(organizationId)+"&order=created_at.desc&limit=25",{headers});
-    const [intents,ledger,approvals,settlements]=await Promise.all([
+    const [intents,ledger,approvals,settlements,agents]=await Promise.all([
       query("zyntra_payment_intents","id,order_reference,amount_atoms,asset_id,status,created_at"),
       query("zyntra_ledger_transactions","id,description,status,created_at,posted_at"),
       query("zyntra_approvals","id,action_type,resource_type,status,reason,created_at"),
-      query("zyntra_settlements","id,provider_batch_reference,gross_atoms,fee_atoms,net_atoms,reconciled_at,created_at")
+      query("zyntra_settlements","id,provider_batch_reference,gross_atoms,fee_atoms,net_atoms,reconciled_at,created_at"),
+      fetch(base+"zyntra_ai_agents?select=agent_key,display_name,purpose,status,model_provider,model_name,human_approval_required&organization_id=is.null&order=agent_key.asc&limit=25",{headers})
     ]);
-    const responses=[intents,ledger,approvals,settlements];
+    const responses=[intents,ledger,approvals,settlements,agents];
     if(responses.some(x=>!x.ok)){console.error("Organization activity query failed",responses.map(x=>x.status));return reply({error:"Activity data unavailable"},502);}
-    const [paymentIntents,ledgerTransactions,pendingApprovals,settlementRecords]=await Promise.all(responses.map(x=>x.json()));
-    return reply({ok:true,organization_id:organizationId,role:memberships[0].role,activity:{payment_intents:paymentIntents,ledger_transactions:ledgerTransactions,approvals:pendingApprovals,settlements:settlementRecords},limits:{per_section:25},read_only:true});
+    const [paymentIntents,ledgerTransactions,pendingApprovals,settlementRecords,agentCatalog]=await Promise.all(responses.map(x=>x.json()));
+    return reply({ok:true,organization_id:organizationId,role:memberships[0].role,activity:{payment_intents:paymentIntents,ledger_transactions:ledgerTransactions,approvals:pendingApprovals,settlements:settlementRecords,agent_catalog:agentCatalog},limits:{per_section:25},read_only:true});
   }catch(error){console.error("Organization activity error",error);return reply({error:"Unexpected server error"},500);}
 });
