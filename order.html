@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>اطلب الآن — ZYNTRA Launch Kit</title>
-<meta name="description" content="اطلب باقة الإطلاق خلال 72 ساعة. تجريبي $29 لأول 5 عملاء." />
+<meta name="description" content="تواصل مع ZYNTRA لمراجعة احتياجك والحصول على نطاق عمل وعرض مناسب." />
 <style>
 :root{--bg:#0b1220;--card:#121a2b;--text:#e8eefc;--muted:#9aa8c7;--accent:#2dd4bf;--accent2:#38bdf8;--warn:#fbbf24}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
@@ -40,12 +40,11 @@ button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.1rem;
 </nav>
 <div class="wrap">
 <h1>طلب باقة Launch Kit</h1>
-<p class="sub">ادفع ← أرسل التأكيد ← استلم خلال 48–72 ساعة</p>
+<p class="sub">أرسل احتياجك أولًا، وسنراجع النطاق ونرسل عرضًا وتعليمات دفع مؤكدة عند قبول الطلب.</p>
 
-<div class="pilot">عرض تجريبي: Starter بـ $29 لأول 5 عملاء فقط</div>
-<div class="seats">المقاعد المتبقية: <strong>5 من 5</strong></div>
 
-<!-- نموذج مبسّط يفتح البريد مع بيانات جاهزة + تعليمات واضحة -->
+
+<!-- نموذج استفسار فقط؛ لا يجمع أموالًا ولا يطلب بيانات دفع -->
 <form action="mailto:zyntrabusinesszyntraal@gmail.com" method="get" enctype="text/plain">
 <label>الاسم / اسم النشاط</label>
 <input name="name" required placeholder="اسمك أو اسم المشروع" />
@@ -75,31 +74,20 @@ button,.cta{display:inline-block;width:100%;text-align:center;margin-top:1.1rem;
 <label>نبذة عن المشروع (سطرين أو ثلاثة)</label>
 <textarea name="brief" rows="3" placeholder="ماذا يفعل مشروعك؟ لمن يبيع؟ أي ألوان مفضلة؟"></textarea>
 
-<label>TxID (إذا دفعت مسبقًا — اختياري الآن)</label>
-<input name="txid" placeholder="الصق TxID هنا إن وُجد" />
-
 <button type="submit">إرسال الطلب + البيانات بالبريد</button>
 </form>
 
-<div class="pay">
-<p><strong>طريقة الدفع (Bitcoin فقط حاليًا)</strong></p>
-<div class="steps-mini">
-<b>1.</b> حول المبلغ إلى العنوان أدناه<br>
-<b>2.</b> انسخ TxID كاملًا<br>
-<b>3.</b> أرسل TxID + اسم الباقة + النبذة إلى البريد (أو عبر النموذج أعلاه)
-</div>
-<p>عنوان BTC:</p>
-<code id="btc">bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u</code>
-<button class="copy-btn" onclick="navigator.clipboard.writeText('bc1q4xr3k7ygeyc7s8nmt0ek4gdcelp6emfudtv99u');this.textContent='تم النسخ ✓'">نسخ العنوان</button>
-<p style="margin-top:1rem">بعد التحويل أرسل إلى:<br>
-<a href="mailto:zyntrabusinesszyntraal@gmail.com" style="color:var(--accent2)">zyntrabusinesszyntraal@gmail.com</a></p>
+<div class="pay" role="note">
+<p><strong>تنبيه الدفع</strong></p>
+<p>لا ترسل أي أموال أو عملات رقمية إلى عنوان منشور أو شخصي. بعد مراجعة الطلب والموافقة على العرض، ستصلك فاتورة وتعليمات دفع رسمية مرتبطة بطلبك وبوسيلة دفع متاحة في بلدك.</p>
+<p>إرسال نموذج الاستفسار لا ينشئ فاتورة ولا يؤكد الدفع أو بدء التنفيذ.</p>
 </div>
 
 <div class="alt">
 أو <a href="https://calendly.com/zyntrabusinesszyntraal/30min" target="_blank" rel="noopener">احجز مكالمة تأكيد 15 دقيقة</a>
 </div>
 
-<p class="note">العمل يبدأ بعد تأكيد التحويل على الشبكة.<br>جولة تعديل واحدة مجانية خلال 7 أيام من التسليم.</p>
+<p class="note">هذا النموذج لإرسال استفسار فقط. موعد التنفيذ والتعديلات يحددان في العرض المكتوب بعد الاتفاق.</p>
 </div>
 </body>
 </html>
