@@ -1,73 +1,65 @@
 # ZYNTRA — Verified Status
 
 **Last verified:** 2026-11-11  
-**Status:** Foundation deployed to Supabase; public website remains a separate static Launch Kit product.
+**Status:** Backend foundation and authenticated organization console are in active development. A preview deployment is READY; production release of the latest console changes is not yet verified.
 
-## What is running
+## Runtime verified
 
 | Component | Verified state |
 |---|---|
 | Supabase project | ACTIVE_HEALTHY |
 | Platform schema | Applied |
-| Provider-neutral ledger | Tables, constraints and indexes applied |
-| Ledger smoke test | Balanced posting accepted; posted-entry mutation rejected |
+| Provider-neutral ledger | Balanced posting smoke test passed; posted journals immutable |
 | Order intake Edge Function | ACTIVE v3 |
-| Payment intent Edge Function | ACTIVE v3, JWT verification enabled; approved provider route required |
-| Chargily Edge Function | ACTIVE v2 but disabled; JWT verification enabled, returns 410 |
-| Asset catalogue | 23 records, 0 active |
-| Provider catalogue | 6 records, 0 enabled |
-| Organizations | 0 |
-| Console source | Merged; deployment pending Vercel build quota |
-| Organization onboarding API | ACTIVE v1, JWT + CORS allowlist |
+| Payment intent Edge Function | ACTIVE v4, JWT verification enabled; approved route required and selected route ID persisted |
+| Organization onboarding API | ACTIVE v3, JWT + CORS allowlist |
 | Organization dashboard API | ACTIVE v2, JWT + membership check |
-| Organization listing API | ACTIVE v1, JWT + CORS allowlist |
+| Organization listing API | ACTIVE v1, JWT + membership check |
 | Organization review API | ACTIVE v1, platform-admin claim required |
 | Ledger posting API | ACTIVE v1, JWT + finance role |
 | Ledger reversal API | ACTIVE v1, JWT + finance role |
+| Organization activity API | ACTIVE v1, JWT + tenant membership, read-only, 25 rows per section |
+| Chargily adapter | ACTIVE v2 but disabled; returns HTTP 410 |
+| Asset catalogue | 23 records, 0 active |
+| Provider catalogue | 6 records, 0 enabled |
+| Organizations | 0 |
 | Provider routes | 0 |
 | Auth users | 0 |
 | Ledger transactions | 0 |
 | AI agents | 0 |
-| Vercel preview | v2 preview build succeeded |
-| Primary Vercel project | Deployment blocked by project verification/branch rules |
+| CI | Contract suite and Deno checks passed for the merged activity and route-binding changes |
+| Vercel preview | READY for the organization activity console branch |
+| Production release | Latest console/financial changes not yet verified on production |
 
 ## What is not running
 
-- No live payment acceptance or settlement.
-- No active crypto, fiat, FX or broker route.
-- No enabled provider route exists; payment intents fail closed until one is approved and enabled.
-- No customer balances or custody.
-- No signing service or withdrawals.
+- No live payment acceptance, provider-side charge, or settlement.
+- No active fiat, crypto, FX, or broker route.
+- No customer balances, custody, signing service, or withdrawals.
 - No live securities orders.
-- No complete customer/admin portal.
-- No verified global licensing or market eligibility.
+- No complete public customer portal or production-grade staff/admin suite.
+- No verified global licensing, underwriting, or market eligibility.
 - No autonomous AI agent with authority to move funds or trade.
-- No verified production release of the latest application changes.
 
 ## Recent changes
 
-1. Added provider-neutral platform schema and security guardrails.
-2. Added immutable posted-ledger controls and per-asset balancing.
-3. Added a disabled global asset/provider catalogue.
-4. Added country-aware organization onboarding, maker-checker approval and provider-route eligibility.
-5. Added idempotent ledger posting and reversal APIs.
-6. Added bounded AI agent registry and tool-governance tables (all agents disabled).
-4. Deployed a JWT-protected payment-intent creation endpoint.
-5. Replaced the public order page with a backend-connected enquiry form.
-6. Removed the hard-coded BTC payment address and direct-payment instructions.
-7. Disabled the unverified DZD-only Chargily checkout adapter.
-8. Removed unsubstantiated pilot scarcity, testimonial and delivery claims from the public homepage.
+1. Added provider-neutral financial schema, immutable double-entry ledger, and idempotent posting/reversal APIs.
+2. Added country-aware organization onboarding, maker-checker review, and disabled-by-default provider-route governance.
+3. Added AI agent registry and tool-grant governance; agents remain disabled and financial execution tools are blocked.
+4. Added authenticated, tenant-scoped read-only organization activity API and console tables for payment intents, ledger transactions, approvals, and settlement records.
+5. Added foreign-key indexes identified by Supabase performance advisors.
+6. Bound each new payment intent to its selected approved provider route; fixed numeric-text idempotency retry handling.
+7. Kept all assets/providers/routes disabled; no live financial activity was enabled.
 
 ## Highest-priority remaining work
 
-1. Build authenticated staff onboarding, organization management and tenant-aware admin views.
-2. Add a server-side order inbox and notification delivery with verified email domain.
-3. Add provider capability and country eligibility registry before activating any asset or provider.
-4. Implement signed webhook inbox, reconciliation, refunds and deterministic state transitions.
-5. Add complete integration/security tests and a reproducible local Supabase migration environment.
-6. Select one canonical Vercel project and resolve deployment verification rules.
-7. Complete legal/compliance review before enabling any regulated financial feature.
+1. Finish staff onboarding, role management, and tenant-aware operational console.
+2. Add provider-specific signed webhook adapters, replay protection, deterministic state transitions, and reconciliation.
+3. Add integration tests for tenant isolation, payment lifecycle, duplicate events, ledger posting/reversal, and settlement matching.
+4. Establish one canonical Vercel project/domain and verify the production deployment of the merged console.
+5. Select a first eligible regulated payment partner and complete underwriting, legal, compliance, and safeguarding reviews before activation.
+6. Add operational alerting, backups/restore tests, incident response, and audit retention.
 
 ## Operating rule
 
-A deployed function is not proof that its full business workflow is validated. A database ledger is not proof of customer funds. A preview deployment is not a production release. Never mark a feature as live without end-to-end evidence.
+A deployed function is not proof that its full business workflow is validated. A selected provider route is not proof of a provider-side payment attempt. A database ledger is not proof of customer funds. A preview deployment is not a production release. Never mark a feature as live without end-to-end evidence.
