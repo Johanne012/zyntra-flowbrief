@@ -73,6 +73,7 @@
           <div><label for="legal-name">الاسم القانوني</label><input id="legal-name" required minlength="2" maxlength="180"></div>
           <div><label for="display-name">الاسم الظاهر</label><input id="display-name" required minlength="2" maxlength="100"></div>
           <div><label for="organization-slug">معرّف المؤسسة (بالإنجليزية)</label><input id="organization-slug" required pattern="[a-z0-9][a-z0-9-]{2,47}" maxlength="48" placeholder="your-company"></div>
+          <div><label for="incorporation-country">بلد تأسيس الكيان القانوني (رمز من حرفين)</label><input id="incorporation-country" required pattern="[A-Za-z]{2}" maxlength="2" placeholder="US" autocomplete="off"></div>
           <div class="form-action"><button class="button button-primary" type="submit">إنشاء المؤسسة</button></div>
         </form>
         <p id="organization-message" class="message" role="status" aria-live="polite"></p>

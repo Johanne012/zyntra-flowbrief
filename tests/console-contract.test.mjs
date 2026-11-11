@@ -44,3 +44,8 @@ test("signup confirmation returns to the console", () => {
   assert.match(js, /auth\/v1\/signup\?redirect_to=/);
   assert.match(js, /window\.location\.origin\+"\/console\/"/);
 });
+
+test("organization onboarding requires a legal incorporation country", () => {
+  assert.match(html, /id="incorporation-country"/);
+  assert.match(js, /incorporation_country:/);
+});

@@ -49,15 +49,16 @@ Deno.serve(async(req:Request)=>{
   const legalName=clean(body.legal_name,180);
   const displayName=clean(body.display_name,100);
   const slug=clean(body.slug,48).toLowerCase();
-  if(legalName.length<2||displayName.length<2||!/^[a-z0-9][a-z0-9-]{2,47}$/.test(slug))
-    return reply({error:"Provide valid legal name, display name and URL slug"},400);
+  const incorporationCountry=clean(body.incorporation_country,2).toUpperCase();
+  if(legalName.length<2||displayName.length<2||!/^[a-z0-9][a-z0-9-]{2,47}$/.test(slug)||!/^[A-Z]{2}$/.test(incorporationCountry))
+    return reply({error:"Provide valid legal name, display name, URL slug and legal incorporation country code"},400);
 
   const headers:Record<string,string>={apikey:secretKey,"Content-Type":"application/json"};
   if(!secretKey.startsWith("sb_secret_"))headers.Authorization="Bearer "+secretKey;
   try{
     const response=await fetch(url+"/rest/v1/rpc/zyntra_create_organization",{
       method:"POST",headers,
-      body:JSON.stringify({p_actor_id:user.id,p_legal_name:legalName,p_display_name:displayName,p_slug:slug})
+      body:JSON.stringify({p_actor_id:user.id,p_legal_name:legalName,p_display_name:displayName,p_slug:slug,p_incorporation_country:incorporationCountry})
     });
     if(response.status===409)return reply({error:"Organization slug is already in use"},409);
     if(!response.ok){
