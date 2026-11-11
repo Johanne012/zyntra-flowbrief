@@ -4,7 +4,7 @@
 
 ## Current state
 
-ZYNTRA does not currently offer a verified live payment method. No asset or provider in the platform catalogue is enabled. The public order form is an enquiry intake only.
+ZYNTRA does not currently offer a verified live payment method. No asset or provider in the platform catalogue is enabled, and no provider route exists. The public order form is an enquiry intake only.
 
 Do not send money to any hard-coded wallet address or personal account. No BTC address is published as an active ZYNTRA payment destination.
 
@@ -14,6 +14,9 @@ The authenticated `zyntra-create-payment-intent` Edge Function:
 - Requires a valid Supabase JWT.
 - Requires active organization membership with owner/admin/finance/operations role.
 - Accepts only a server-enabled asset.
+- Requires the organization's legal incorporation country.
+- Requires a matching, approved and enabled organization-specific provider route and enabled provider.
+- Checks payment method, customer country and exact route amount limits.
 - Uses integer amount atoms and organization-scoped idempotency.
 - Creates an internal intent only.
 

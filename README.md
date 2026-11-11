@@ -8,7 +8,9 @@ ZYNTRA is being developed as a modular, global digital platform. This repository
 - Backend: Supabase Postgres and Edge Functions.
 - Platform core schema: organizations, memberships, asset catalog, provider registry, payment intents, payment attempts, provider event inbox, double-entry ledger, FX quotes, settlements, approvals and audit events.
 - Public enquiry form: writes order/enquiry records through a rate-limited server-side Edge Function.
-- Payment-intent API: authenticated JWT required; creates an internal intent only.
+- Payment-intent API: authenticated JWT required; requires an approved organization-specific provider route and creates an internal intent only.
+- Ledger posting/reversal APIs: JWT-protected, finance-role checks, balanced immutable journals and reversal journals.
+- Organization onboarding/review: country-aware, pending by default, maker-checker approval and platform-admin claim.
 - Regional Chargily checkout: disabled pending eligibility and end-to-end validation.
 - Asset catalogue: 23 seeded assets, all disabled.
 - Provider catalogue: 6 provider records, all disabled.

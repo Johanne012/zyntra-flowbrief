@@ -5,7 +5,7 @@ Automation is added incrementally and must be observable, bounded and reversible
 ## Current approach
 
 - GitHub Actions validates repository contracts and type-checks Edge Functions.
-- Supabase Edge Functions handle server-side enquiry intake and payment-intent creation.
+- Supabase Edge Functions handle server-side enquiry intake, organization onboarding/review, payment-intent creation and controlled ledger posting/reversals.
 - ChatGPT-connected tools can assist with research, code changes, documentation and operational checks.
 - No single AI agent is treated as an always-on autonomous operator.
 
