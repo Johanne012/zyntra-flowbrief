@@ -1,7 +1,7 @@
 alter table public.zyntra_ledger_transactions
   add column if not exists request_hash text;
 
-update public.zyntra_ledger_transactions set request_hash=encode(public.digest(convert_to(id::text,'UTF8'),'sha256'),'hex') where request_hash is null;
+update public.zyntra_ledger_transactions set request_hash=encode(extensions.digest(convert_to(id::text,'UTF8'),'sha256'),'hex') where request_hash is null;
 alter table public.zyntra_ledger_transactions alter column request_hash set not null;
 
 alter table public.zyntra_ledger_transactions
@@ -63,7 +63,7 @@ begin
     raise exception 'Insufficient organization role for ledger posting';
   end if;
 
-  v_hash := encode(public.digest(convert_to(
+  v_hash := encode(extensions.digest(convert_to(
     jsonb_build_object('description',btrim(p_description),'entries',p_entries)::text,
     'UTF8'
   ),'sha256'),'hex');
