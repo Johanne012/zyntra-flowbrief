@@ -140,5 +140,4 @@ $("new-organization-toggle").addEventListener("click",()=>{$("create-org-panel")
 $("refresh-button").addEventListener("click",loadDashboard);
 $("signout-button").addEventListener("click",signout);
 document.querySelectorAll("[data-view]").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x===button));showFeature(button.dataset.view);}));
-$("language-toggle").addEventListener("click",()=>{const en=document.documentElement.lang==="ar";document.documentElement.lang=en?"en":"ar";document.documentElement.dir=en?"ltr":"rtl";$("language-toggle").textContent=en?"عربي":"EN";setMessage($("auth-message"),en?"Language preference changed for layout direction only.":"تم تغيير اتجاه العرض فقط.");});
 setAuthMode("login");
