@@ -26,3 +26,11 @@ test("form uses global market options and supported package codes", () => {
     assert.match(html, new RegExp('value="' + code + '"'));
   }
 });
+
+test("malformed Supabase key configuration fails closed without uncaught JSON parsing", async () => {
+  const api = await readFile(new URL("../supabase/functions/zyntra-order-intake/index.ts", import.meta.url), "utf8");
+  assert.match(api, /const configuredKey =/);
+  assert.match(api, /catch \{\s*return "";/);
+  assert.match(api, /if \(!expectedPublicKey\) return json\(\{ error: "الخدمة غير مهيأة بعد\." \}, 503/);
+  assert.doesNotMatch(api, /JSON\.parse\(Deno\.env\.get\("SUPABASE_(?:PUBLISHABLE|SECRET)_KEYS"/);
+});
