@@ -33,3 +33,11 @@ jobs:
           for f in index.html order.html about.html contact.html; do
             if [ -f "$f" ]; then echo "OK $f"; else echo "missing $f (optional)"; fi
           done
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run order intake contract tests
+        run: node --test tests/order-intake-contract.test.mjs
