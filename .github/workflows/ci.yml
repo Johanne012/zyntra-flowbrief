@@ -49,3 +49,6 @@ jobs:
 
       - name: Type-check Supabase Edge Function
         run: deno check supabase/functions/zyntra-order-intake/index.ts
+
+      - name: Type-check Chargily payment Edge Function
+        run: deno check supabase/functions/zyntra-chargily-payments/index.ts
