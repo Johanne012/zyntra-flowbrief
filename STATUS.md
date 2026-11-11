@@ -12,7 +12,7 @@
 | Provider-neutral ledger | Tables, constraints and indexes applied |
 | Ledger smoke test | Balanced posting accepted; posted-entry mutation rejected |
 | Order intake Edge Function | ACTIVE v3 |
-| Payment intent Edge Function | ACTIVE v1, JWT verification enabled |
+| Payment intent Edge Function | ACTIVE v3, JWT verification enabled; approved provider route required |
 | Chargily Edge Function | ACTIVE v2 but disabled; JWT verification enabled, returns 410 |
 | Asset catalogue | 23 records, 0 active |
 | Provider catalogue | 6 records, 0 enabled |
@@ -21,6 +21,13 @@
 | Organization onboarding API | ACTIVE v1, JWT + CORS allowlist |
 | Organization dashboard API | ACTIVE v2, JWT + membership check |
 | Organization listing API | ACTIVE v1, JWT + CORS allowlist |
+| Organization review API | ACTIVE v1, platform-admin claim required |
+| Ledger posting API | ACTIVE v1, JWT + finance role |
+| Ledger reversal API | ACTIVE v1, JWT + finance role |
+| Provider routes | 0 |
+| Auth users | 0 |
+| Ledger transactions | 0 |
+| AI agents | 0 |
 | Vercel preview | v2 preview build succeeded |
 | Primary Vercel project | Deployment blocked by project verification/branch rules |
 
@@ -28,6 +35,7 @@
 
 - No live payment acceptance or settlement.
 - No active crypto, fiat, FX or broker route.
+- No enabled provider route exists; payment intents fail closed until one is approved and enabled.
 - No customer balances or custody.
 - No signing service or withdrawals.
 - No live securities orders.
@@ -41,6 +49,9 @@
 1. Added provider-neutral platform schema and security guardrails.
 2. Added immutable posted-ledger controls and per-asset balancing.
 3. Added a disabled global asset/provider catalogue.
+4. Added country-aware organization onboarding, maker-checker approval and provider-route eligibility.
+5. Added idempotent ledger posting and reversal APIs.
+6. Added bounded AI agent registry and tool-governance tables (all agents disabled).
 4. Deployed a JWT-protected payment-intent creation endpoint.
 5. Replaced the public order page with a backend-connected enquiry form.
 6. Removed the hard-coded BTC payment address and direct-payment instructions.
