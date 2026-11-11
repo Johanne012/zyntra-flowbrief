@@ -19,7 +19,7 @@ const allowedOrigin = (origin:string) => {
 
 Deno.serve(async(req:Request)=>{
   const origin=req.headers.get("origin")??"";
-  if(origin && !allowedOrigin(origin))return reply({error:"Origin not allowed"},403);
+  if(origin && !allowedOrigin(origin))return json({error:"Origin not allowed"},403);
   const corsHeaders:HeadersInit=origin?{"Access-Control-Allow-Origin":origin,"Vary":"Origin","Access-Control-Allow-Methods":"POST, OPTIONS","Access-Control-Allow-Headers":"authorization, apikey, content-type, x-client-info"}:{};
   const reply=(body:unknown,status=200)=>json(body,status,corsHeaders);
   if(req.method==="OPTIONS")return new Response(null,{status:204,headers:corsHeaders});
