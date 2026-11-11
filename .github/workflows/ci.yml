@@ -67,3 +67,6 @@ jobs:
 
       - name: Type-check browser console JavaScript
         run: node --check console/app.js
+
+      - name: Type-check platform organization review Edge Function
+        run: deno check supabase/functions/zyntra-review-organization/index.ts
