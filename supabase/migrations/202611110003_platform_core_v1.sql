@@ -351,7 +351,10 @@ revoke all on function public.zyntra_guard_audit_append_only() from public, anon
 revoke all on function public.zyntra_validate_posted_ledger() from public, anon, authenticated;
 revoke all on function public.zyntra_validate_posted_transaction() from public, anon, authenticated;
 
-revoke delete, truncate on public.zyntra_ledger_transactions, public.zyntra_ledger_entries from service_role;\nrevoke update, delete, truncate on public.zyntra_audit_events from service_role;\ngrant select, insert on public.zyntra_audit_events to service_role;\ngrant usage on schema public to service_role;
+revoke delete, truncate on public.zyntra_ledger_transactions, public.zyntra_ledger_entries from service_role;
+revoke update, delete, truncate on public.zyntra_audit_events from service_role;
+grant select, insert on public.zyntra_audit_events to service_role;
+grant usage on schema public to service_role;
 grant usage, select on sequence public.zyntra_audit_events_id_seq to service_role;
 
 comment on table public.zyntra_ledger_transactions is 'Internal accounting journal; not evidence of custody or customer asset backing.';
