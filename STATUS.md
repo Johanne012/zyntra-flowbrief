@@ -18,7 +18,7 @@
 | Organization review API | ACTIVE v1, platform-admin claim required |
 | Ledger posting API | ACTIVE v1, JWT + finance role |
 | Ledger reversal API | ACTIVE v1, JWT + finance role |
-| Organization activity API | ACTIVE v1, JWT + tenant membership, read-only, 25 rows per section |
+| Organization activity API | ACTIVE v2, JWT + tenant membership, read-only activity plus disabled global AI catalog |
 | Chargily adapter | ACTIVE v2 but disabled; returns HTTP 410 |
 | Asset catalogue | 23 records, 0 active |
 | Provider catalogue | 6 records, 0 enabled |
@@ -46,7 +46,7 @@
 1. Added provider-neutral financial schema, immutable double-entry ledger, and idempotent posting/reversal APIs.
 2. Added country-aware organization onboarding, maker-checker review, and disabled-by-default provider-route governance.
 3. Added AI agent registry and tool-grant governance; agents remain disabled and financial execution tools are blocked.
-4. Added authenticated, tenant-scoped read-only organization activity API and console tables for payment intents, ledger transactions, approvals, and settlement records.
+4. Added authenticated, tenant-scoped read-only organization activity API and console tables for payment intents, ledger transactions, approvals, settlement records, and the disabled global AI agent catalog.
 5. Added foreign-key indexes identified by Supabase performance advisors.
 6. Bound each new payment intent to its selected approved provider route; fixed numeric-text idempotency retry handling.
 7. Kept all assets/providers/routes disabled; no live financial activity was enabled.
