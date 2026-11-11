@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 const sql = await readFile(new URL("../supabase/migrations/202611110012_provider_route_governance.sql", import.meta.url), "utf8");
 const api = await readFile(new URL("../supabase/functions/zyntra-create-payment-intent/index.ts", import.meta.url), "utf8");
 const bindingSql = await readFile(new URL("../supabase/migrations/202611110014_payment_intent_route_binding.sql", import.meta.url), "utf8");
+const prioritySql = await readFile(new URL("../supabase/migrations/202611110016_deterministic_provider_route_priority.sql", import.meta.url), "utf8");
 
 test("provider routes are tenant-scoped and disabled by default", () => {
   assert.match(sql, /create table if not exists public\.zyntra_provider_routes/);
@@ -39,4 +40,13 @@ test("payment intents persist the approved provider route decision", () => {
   assert.match(bindingSql, /references public\.zyntra_provider_routes/);
   assert.match(api, /provider_route_id: eligibleRoute\.id/);
   assert.match(api, /amount_atoms_text:amount_atoms::text/);
+});
+
+test("provider route selection is deterministic and priority ordered", () => {
+  assert.match(prioritySql, /priority smallint not null default 100/);
+  assert.match(prioritySql, /priority between 0 and 10000/);
+  assert.match(api, /select=id,provider_id,priority,created_at/);
+  assert.match(api, /routes\.sort/);
+  assert.match(api, /priority \?\? 100/);
+  assert.match(api, /localeCompare/);
 });

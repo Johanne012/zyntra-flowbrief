@@ -141,7 +141,7 @@ Deno.serve(async (req: Request) => {
     if (asset.is_active !== true) return reply({ error: "Asset is not enabled" }, 409);
 
     const routeResponse = await fetch(
-      rest("zyntra_provider_routes?select=id,provider_id,min_amount_atoms_text:min_amount_atoms::text,max_amount_atoms_text:max_amount_atoms::text,payment_method,customer_country_code&organization_id=eq." +
+      rest("zyntra_provider_routes?select=id,provider_id,priority,created_at,min_amount_atoms_text:min_amount_atoms::text,max_amount_atoms_text:max_amount_atoms::text,payment_method,customer_country_code&organization_id=eq." +
         encodeURIComponent(organizationId) + "&asset_id=eq." + encodeURIComponent(asset.id) +
         "&merchant_country_code=eq." + encodeURIComponent(organization.incorporation_country) +
         "&enabled=eq.true&approval_status=eq.approved"),
@@ -162,6 +162,9 @@ Deno.serve(async (req: Request) => {
     if (!providerResponse.ok) return reply({ error: "Provider status lookup unavailable" }, 503);
     const enabledProviderIds = new Set((await providerResponse.json()).map((provider: any) => provider.id));
     routes = routes.filter((route: any) => enabledProviderIds.has(route.provider_id));
+    routes.sort((a: any, b: any) => Number(a.priority ?? 100) - Number(b.priority ?? 100) ||
+      String(a.created_at ?? "").localeCompare(String(b.created_at ?? "")) ||
+      String(a.id).localeCompare(String(b.id)));
     const amount = BigInt(amountAtoms);
     const eligibleRoute = routes.find((route: any) =>
       amount >= BigInt(String(route.min_amount_atoms_text)) &&
