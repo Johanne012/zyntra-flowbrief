@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const sql = await readFile(new URL("../supabase/migrations/202611110010_ledger_posting_engine.sql", import.meta.url), "utf8");
+const coreSql = await readFile(new URL("../supabase/migrations/202611110003_platform_core_v1.sql", import.meta.url), "utf8");
 const api = await readFile(new URL("../supabase/functions/zyntra-post-ledger/index.ts", import.meta.url), "utf8");
 
 test("ledger posting RPC is server-only", () => {
@@ -12,9 +13,9 @@ test("ledger posting RPC is server-only", () => {
 });
 
 test("ledger enforces per-asset balancing and immutable posted journals", () => {
-  assert.match(sql, /having sum\(debit_atoms\) <> sum\(credit_atoms\)/i);
-  assert.match(sql, /Posted ledger entries are immutable/i);
-  assert.match(sql, /zyntra_ledger_transaction_immutable/i);
+  assert.match(coreSql, /having sum\(debit_atoms\) <> sum\(credit_atoms\)/i);
+  assert.match(coreSql, /Posted ledger entries are immutable/i);
+  assert.match(coreSql, /zyntra_ledger_transaction_immutable/i);
   assert.match(sql, /request_hash/);
 });
 
