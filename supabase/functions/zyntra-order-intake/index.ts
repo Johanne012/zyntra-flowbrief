@@ -7,6 +7,22 @@ const json = (body: unknown, status = 200, headers: HeadersInit = {}) =>
 const clean = (value: unknown, max: number) =>
   typeof value === "string" ? value.trim().slice(0, max) : "";
 
+const configuredKey = (jsonName: string, legacyName: string) => {
+  const raw = Deno.env.get(jsonName);
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.default === "string" && parsed.default.length > 0) {
+        return parsed.default;
+      }
+      return "";
+    } catch {
+      return "";
+    }
+  }
+  return Deno.env.get(legacyName) ?? "";
+};
+
 const sha256 = async (value: string) => {
   const bytes = new TextEncoder().encode(value);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
@@ -43,8 +59,8 @@ Deno.serve(async (req: Request) => {
     return json({ error: "Invalid request body" }, 400, corsHeaders);
   }
 
-  const publishable = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") ?? "{}");
-  const expectedPublicKey = publishable.default ?? Deno.env.get("SUPABASE_ANON_KEY");
+  const expectedPublicKey = configuredKey("SUPABASE_PUBLISHABLE_KEYS", "SUPABASE_ANON_KEY");
+  if (!expectedPublicKey) return json({ error: "الخدمة غير مهيأة بعد." }, 503, corsHeaders);
   const providedKey = req.headers.get("apikey");
   if (!expectedPublicKey || providedKey !== expectedPublicKey) {
     return json({ error: "Unauthorized" }, 401, corsHeaders);
@@ -74,8 +90,7 @@ Deno.serve(async (req: Request) => {
     return json({ error: "يرجى مراجعة الحقول المطلوبة والتأكد من اكتمالها." }, 400, corsHeaders);
   }
 
-  const secretKeys = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") ?? "{}");
-  const adminKey = secretKeys.default ?? Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  const adminKey = configuredKey("SUPABASE_SECRET_KEYS", "SUPABASE_SERVICE_ROLE_KEY");
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   if (!adminKey || !supabaseUrl) return json({ error: "الخدمة غير مهيأة بعد." }, 503, corsHeaders);
 
