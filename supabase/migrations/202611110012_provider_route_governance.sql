@@ -43,8 +43,39 @@ create table if not exists public.zyntra_provider_routes (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   check (max_amount_atoms is null or max_amount_atoms >= min_amount_atoms),
-  unique (organization_id,provider_id,asset_id,merchant_country_code,customer_country_code,payment_method)
+  check (not enabled or (approval_status='approved' and last_verified_at is not null and provider_account_reference is not null))
 );
+
+alter table public.zyntra_provider_routes
+  drop constraint if exists zyntra_provider_routes_organization_id_provider_id_asset_id_merchant_country_code_customer_country_code_payment_method_key;
+create unique index if not exists zyntra_provider_routes_unique_route_idx
+  on public.zyntra_provider_routes(
+    organization_id,provider_id,asset_id,merchant_country_code,
+    (coalesce(customer_country_code,'*')),payment_method
+  );
+
+create or replace function public.zyntra_validate_provider_route_country()
+returns trigger
+language plpgsql
+set search_path = pg_catalog, public
+as $fn$
+declare
+  v_country text;
+begin
+  select incorporation_country into v_country
+  from public.zyntra_organizations where id=new.organization_id;
+  if v_country is null or v_country <> new.merchant_country_code then
+    raise exception 'Provider route merchant country must match organization incorporation country';
+  end if;
+  return new;
+end;
+$fn$;
+
+create trigger zyntra_provider_route_country_check
+before insert or update on public.zyntra_provider_routes
+for each row execute function public.zyntra_validate_provider_route_country();
+
+revoke all on function public.zyntra_validate_provider_route_country() from public,anon,authenticated;
 
 alter table public.zyntra_payment_attempts
   add column if not exists provider_route_id uuid references public.zyntra_provider_routes(id);
