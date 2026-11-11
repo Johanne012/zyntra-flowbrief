@@ -61,3 +61,9 @@ jobs:
 
       - name: Type-check organization dashboard Edge Function
         run: deno check supabase/functions/zyntra-org-dashboard/index.ts
+
+      - name: Type-check organization listing Edge Function
+        run: deno check supabase/functions/zyntra-my-organizations/index.ts
+
+      - name: Type-check browser console JavaScript
+        run: node --check console/app.js
