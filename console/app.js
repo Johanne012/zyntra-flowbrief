@@ -139,6 +139,7 @@ async function loadActivity(){
   renderActivityTable(container,"دفتر الحسابات",data.activity.ledger_transactions,[{key:"created_at",label:"التاريخ"},{key:"description",label:"الوصف"},{key:"status",label:"الحالة"},{key:"posted_at",label:"تاريخ الترحيل"}]);
   renderActivityTable(container,"الموافقات",data.activity.approvals,[{key:"created_at",label:"التاريخ"},{key:"action_type",label:"الإجراء"},{key:"resource_type",label:"المورد"},{key:"status",label:"الحالة"},{key:"reason",label:"السبب"}]);
   renderActivityTable(container,"التسويات المسجلة",data.activity.settlements,[{key:"created_at",label:"التاريخ"},{key:"provider_batch_reference",label:"مرجع المزود"},{key:"gross_atoms",label:"الإجمالي"},{key:"fee_atoms",label:"الرسوم"},{key:"net_atoms",label:"الصافي"},{key:"reconciled_at",label:"تاريخ المطابقة"}]);
+  renderActivityTable(container,"وكلاء الذكاء الاصطناعي (كتالوج معطّل)",data.activity.agent_catalog,[{key:"display_name",label:"الوكيل"},{key:"agent_key",label:"المعرّف"},{key:"purpose",label:"المهمة"},{key:"status",label:"الحالة"},{key:"human_approval_required",label:"موافقة بشرية"}]);
   setMessage($("app-message"),"تم تحميل السجلات للقراءة فقط.","success");
  }catch(error){container.replaceChildren();const message=document.createElement("p");message.className="message error";message.textContent=error.message||"تعذر تحميل السجلات.";container.append(message);}
 }

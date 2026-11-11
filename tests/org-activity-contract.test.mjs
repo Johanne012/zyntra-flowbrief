@@ -12,6 +12,9 @@ test("organization activity is read-only and tenant scoped", () => {
   assert.match(api, /organization_id=eq\./);
   assert.match(api, /limit=25/);
   assert.match(api, /read_only:true/);
+  assert.match(api, /zyntra_ai_agents/);
+  assert.match(api, /agent_catalog:agentCatalog/);
+  assert.match(js, /agent_catalog/);
   assert.doesNotMatch(api, /method:\s*"PATCH"|method:\s*"DELETE"/);
 });
 test("console renders activity as text rather than HTML", () => {
