@@ -122,7 +122,7 @@ Deno.serve(async (req: Request) => {
     if (!asset?.id) return reply({ error: "Asset is not configured" }, 409);
 
     const existingResponse = await fetch(
-      rest("zyntra_payment_intents?select=id,amount_atoms_text:amount_atoms::text,asset_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
+      rest("zyntra_payment_intents?select=id,amount_atoms_text:amount_atoms::text,asset_id,provider_route_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
         encodeURIComponent(organizationId) + "&idempotency_key=eq." + encodeURIComponent(idempotencyKey)),
       { headers: adminHeaders },
     );
@@ -178,6 +178,7 @@ Deno.serve(async (req: Request) => {
         order_reference: orderReference,
         amount_atoms: amountAtoms,
         asset_id: asset.id,
+        provider_route_id: eligibleRoute.id,
         idempotency_key: idempotencyKey,
         requested_method: requestedMethod,
         customer_country_code: customerCountryCode,
@@ -186,7 +187,7 @@ Deno.serve(async (req: Request) => {
     });
     if (insertResponse.status === 409) {
       const retry = await fetch(
-        rest("zyntra_payment_intents?select=id,amount_atoms,asset_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
+        rest("zyntra_payment_intents?select=id,amount_atoms_text:amount_atoms::text,asset_id,provider_route_id,status,order_reference,requested_method,customer_country_code&organization_id=eq." +
           encodeURIComponent(organizationId) + "&idempotency_key=eq." + encodeURIComponent(idempotencyKey)),
         { headers: adminHeaders },
       );
