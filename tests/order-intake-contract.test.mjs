@@ -15,7 +15,7 @@ test("order form no longer uses mailto as its submission handler", () => {
 });
 
 test("form warns that submitted TxIDs are not verified payments", () => {
-  assert.match(html, /لا يعني تأكيد الدفع/);
+  assert.match(html, /إرسال TxID لا يعني التحقق من الدفع/);
   assert.match(html, /submitted_unverified|TxID/);
 });
 
