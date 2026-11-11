@@ -24,6 +24,7 @@ declare
   v_reversal_id uuid;
   v_existing_hash text;
   v_existing_id uuid;
+  v_existing_reference text;
 begin
   if p_organization_id is null or p_actor_id is null or p_original_transaction_id is null then
     raise exception 'Organization, actor and original transaction are required';
