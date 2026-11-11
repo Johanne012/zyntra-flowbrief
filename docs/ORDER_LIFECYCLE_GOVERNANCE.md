@@ -1,6 +1,6 @@
 # ZYNTRA Order Lifecycle — Implementation Specification
 
-**Status:** Design approved for implementation planning; not deployed.  
+**Status:** Design specification; first server-side transition RPC is under review in PR #35 and has not been applied to Supabase.  
 **Evidence source:** Current Supabase schema and the deployed `zyntra-admin-orders` Edge Function inspected on 2026-11-11.
 
 ## Current verified state
@@ -8,7 +8,8 @@
 - `public.zyntra_orders` exists and currently contains **0 rows**.
 - `order_status` is text constrained to: `received`, `reviewing`, `awaiting_payment`, `paid`, `in_progress`, `delivered`, `cancelled`.
 - `payment_status` is text constrained to: `not_submitted`, `submitted_unverified`, `verified`, `rejected`.
-- The table currently has no order-audit/event table and no triggers attached to it.
+- The platform already has `public.zyntra_audit_events`, protected by an append-only trigger and restricted to server-side writes. It is a general audit stream, not an order-specific table.
+- `zyntra_orders` has no transition trigger or mutation RPC. The existing audit stream can record order transitions without introducing a duplicate event table.
 - The current `zyntra-admin-orders` function is a read-only inbox. It verifies the user through Supabase Auth and requires `app_metadata.zyntra_platform_admin === true`.
 - The public order-intake function is intentionally unauthenticated at the user-session layer; it uses a public-key check, bounded payload, rate limit RPC and server-side insert. Preserve this separation.
 
@@ -43,7 +44,7 @@ Terminal states: `delivered` and `cancelled`.
 
 ## Required audit design
 
-Create an append-only order event record, written in the same database transaction as every accepted state change. Minimum fields:
+Append to the existing `public.zyntra_audit_events` stream in the same database transaction as every accepted state change. Use `resource_type = 'order'`, the order UUID as `resource_id`, `action = 'order.status_transition'`, and store only bounded transition metadata in `details`. Do not create a parallel order-event table unless a later scale or retention requirement justifies it. Minimum event details:
 
 - event UUID, order UUID and stable order number
 - actor user UUID and actor role/source
