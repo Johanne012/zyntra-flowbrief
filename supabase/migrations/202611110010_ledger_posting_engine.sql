@@ -1,6 +1,9 @@
 alter table public.zyntra_ledger_transactions
   add column if not exists request_hash text;
 
+update public.zyntra_ledger_transactions set request_hash=encode(public.digest(convert_to(id::text,'UTF8'),'sha256'),'hex') where request_hash is null;
+alter table public.zyntra_ledger_transactions alter column request_hash set not null;
+
 alter table public.zyntra_ledger_transactions
   add constraint zyntra_ledger_transactions_request_hash_check
   check (request_hash is null or request_hash ~ '^[0-9a-f]{64}$');
@@ -56,7 +59,7 @@ begin
   select role into v_role
   from public.zyntra_organization_members
   where organization_id=p_organization_id and user_id=p_actor_id;
-  if v_role not in ('owner','admin','finance') then
+  if v_role is null or v_role not in ('owner','admin','finance') then
     raise exception 'Insufficient organization role for ledger posting';
   end if;
 
