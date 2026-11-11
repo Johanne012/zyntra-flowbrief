@@ -9,6 +9,7 @@ ZYNTRA is being developed as a modular, global digital platform. This repository
 - Platform core: organizations, memberships, asset catalogue, provider registry, payment intents/attempts, provider-event inbox, double-entry ledger, FX quotes, settlements, approvals, and audit events.
 - Organization console: authenticated signup/login, organization onboarding, organization selection, aggregate dashboard, and a tenant-scoped read-only activity view.
 - Activity API: JWT required; verifies organization membership and returns up to 25 payment-intent, ledger, approval, and settlement records per section, plus the read-only global AI agent catalog.
+- Admin order inbox: JWT and a server-verified platform-admin claim required; read-only and bounded to 100 records per page. No platform-admin user is currently configured.
 - Payment-intent API: JWT required; checks membership, active organization, enabled asset, approved/enabled provider route, merchant country, customer country, method, and amount limits. It stores the selected route ID on the internal intent; it does not charge a provider.
 - Ledger posting/reversal APIs: JWT-protected, finance-role checks, balanced immutable journals, and separate reversal journals.
 - Organization onboarding/review: legal-country-aware, pending by default, maker-checker approval and platform-admin claim.
