@@ -40,7 +40,7 @@ jobs:
           node-version: 22
 
       - name: Run order intake contract tests
-        run: node --test tests/order-intake-contract.test.mjs tests/console-contract.test.mjs
+        run: node --test tests/order-intake-contract.test.mjs tests/console-contract.test.mjs tests/ledger-contract.test.mjs
 
       - name: Set up Deno
         uses: denoland/setup-deno@v2
@@ -70,3 +70,6 @@ jobs:
 
       - name: Type-check platform organization review Edge Function
         run: deno check supabase/functions/zyntra-review-organization/index.ts
+
+      - name: Type-check ledger posting Edge Function
+        run: deno check supabase/functions/zyntra-post-ledger/index.ts
