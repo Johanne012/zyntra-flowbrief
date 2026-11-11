@@ -253,7 +253,7 @@ $$;
 
 drop trigger if exists zyntra_ledger_entries_immutable on public.zyntra_ledger_entries;
 create trigger zyntra_ledger_entries_immutable
-before update or delete on public.zyntra_ledger_entries
+before insert or update or delete on public.zyntra_ledger_entries
 for each row execute function public.zyntra_guard_posted_ledger_mutation();
 
 create or replace function public.zyntra_validate_posted_ledger()
@@ -301,7 +301,7 @@ language plpgsql
 set search_path = pg_catalog, public
 as $$
 begin
-  if new.status = 'posted' and old.status <> 'posted' then
+  if new.status = 'posted' and (tg_op = 'INSERT' or old.status <> 'posted') then
     if (select count(*) from public.zyntra_ledger_entries where transaction_id = new.id) < 2 then
       raise exception 'A posted ledger transaction requires at least two entries';
     end if;
@@ -351,7 +351,7 @@ revoke all on function public.zyntra_guard_audit_append_only() from public, anon
 revoke all on function public.zyntra_validate_posted_ledger() from public, anon, authenticated;
 revoke all on function public.zyntra_validate_posted_transaction() from public, anon, authenticated;
 
-grant usage on schema public to service_role;
+revoke delete, truncate on public.zyntra_ledger_transactions, public.zyntra_ledger_entries from service_role;\nrevoke update, delete, truncate on public.zyntra_audit_events from service_role;\ngrant select, insert on public.zyntra_audit_events to service_role;\ngrant usage on schema public to service_role;
 grant usage, select on sequence public.zyntra_audit_events_id_seq to service_role;
 
 comment on table public.zyntra_ledger_transactions is 'Internal accounting journal; not evidence of custody or customer asset backing.';
