@@ -53,6 +53,7 @@
       <button id="new-organization-toggle" class="button button-outline" type="button">+ إضافة مؤسسة</button>
       <div class="side-divider"></div>
       <button class="nav-item active" type="button" data-view="overview">نظرة عامة</button>
+      <button class="nav-item" type="button" data-view="activity">النشاط والسجلات</button>
       <button class="nav-item" type="button" data-view="payments">المدفوعات</button>
       <button class="nav-item" type="button" data-view="ledger">دفتر الحسابات</button>
       <button class="nav-item" type="button" data-view="assets">الأصول والمزودون</button>
@@ -99,6 +100,11 @@
         </div>
       </div>
 
+      <div id="activity-panel" class="panel feature-panel" hidden>
+        <p class="eyebrow">READ-ONLY OPERATIONS</p><h2>النشاط والسجلات</h2>
+        <p class="muted">عرض محدود لآخر 25 سجلًا في كل قسم. هذه البيانات داخلية ولا تثبت تحصيل أموال أو تسوية فعلية.</p>
+        <div id="activity-content" class="activity-content"></div>
+      </div>
       <div id="feature-panel" class="panel feature-panel" hidden>
         <p class="eyebrow">CONTROLLED MODULE</p><h2 id="feature-title">الميزة</h2><p id="feature-description" class="muted"></p><span class="status-pill status-warning">غير مفعّلة بعد</span>
       </div>
