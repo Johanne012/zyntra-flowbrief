@@ -25,5 +25,7 @@ test("order transitions enforce concurrency, allowlist and required evidence", (
 test("order transition request ids are idempotent and audit events remain append-only", () => {
   assert.match(sql, /zyntra_order_transition_request_uidx/);
   assert.match(sql, /idempotent_replay/);
+  assert.match(sql, /actor_user_id is distinct from p_actor_user_id/i);
+  assert.match(sql, /details->>'from_status' is distinct from p_expected_status/i);
   assert.match(sql, /public\.zyntra_audit_events/);
 });
